@@ -1,0 +1,312 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[round]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{Model 2.0}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{How Representations Shape Strategic Behavior}
+\label{sec:behavior}
+
+Two players interact once. Player $S$ is the first mover---the dictator, the proposer, the investor; generically, the \emph{sender}---and player $R$ is the second mover or \emph{receiver}. The sender's initial wealth is normalized to one, and her action is the share $t\in[0,1]$ she sends to the receiver. Total final wealth is $W(t)$, which may depend on the amount sent, $\pi_S$ denotes the sender's material payoff, and $\pi_R$ denotes the receiver's material payoff.
+
+A \emph{representation} of the game is a pair $\mathbf{r}=(\boldsymbol{\alpha},\mathbf{x})$: an attention profile $\boldsymbol{\alpha}=(\rho,\sigma,\mu)$ over payoff elements and, in the strategic games, a believed behavior $\mathbf{x}$ of the receiver. Given her representation, the sender maximizes
+\begin{equation}
+u_S (t) \;=\; \rho\, W(t)\;-\;\sigma\, \pi_R\;-\;\frac{\mu}{2}\left(t-\tfrac12\right)^{2},
+\label{eq:utility}
+\end{equation}
+where the three payoff elements are total wealth, the receiver's material payoff, and a sharing norm anchored at the equal split. The Greek letters are attention weights, with $\rho=\sigma=\mu=1$ the undistorted case in which no motive is slanted by the representation and the sender has inequity-averse utility in the spirit of \citet{BoltonOckenfels2000}. Standard models prescribe \emph{stability}---that is, an attention profile that stays fixed while context varies---and, in the strategic games, \emph{rational expectations}---that is, beliefs that track actual behavior. 
+
+Because $\pi_S=W(t)-\pi_R$, equation~\eqref{eq:utility} can be rewritten as
+\begin{equation}
+u_S(t) \;=\; \sigma\,\pi_S \;+\; (\rho-\sigma)\,W(t)\;-\;\frac{\mu}{2}\left(t-\tfrac12\right)^{2},
+\label{eq:utility_rewritten}
+\end{equation}
+which makes the mapping to motives transparent: $\sigma$ is attention to own earnings, $\rho-\sigma$ is attention to the total surplus over and above one's own share, and $\mu$ is attention to the norm. The functional form thus nests the motives of standard distributional preference models \citep{FehrSchmidt1999, BoltonOckenfels2000, CharnessRabin2002}, with two differences. First, the moral term is \emph{idealistic}: it attaches to what the sender does, not to what materializes afterwards. Whether the receiver accepts, rejects, or reciprocates, the sender has still sent the same $t$; only material payoffs are contingent on the receiver's move. This assumption embodies a simple moral psychology---one feels right or wrong about one's own conduct---and makes the strategic games tractable. Second, beliefs are part of the representation rather than equilibrium objects: the process that determines what the game is about also determines whom one imagines playing against. The attention weights and beliefs are properties of the situation the game evokes, not stable traits: the same person can be a moral dictator and a self-interested price-setter. Proofs of all propositions are in Appendix~\ref{app:proofs}.
+
+\paragraph{Dictator Game.} Here $W(t)=1$ and $\pi_R=t$; there is no second mover to forecast, so $\mathbf{x}$ is empty.
+
+\begin{proposition}[Dictator Transfer]
+\label{prop:dg}
+The optimal transfer is $t^{DG}=\max\left\{0,\ \tfrac12-\tfrac{\sigma}{\mu}\right\}$. It never exceeds one half, is decreasing in the selfishness ratio $\sigma/\mu$, and is independent of $\rho$.
+\end{proposition}
+
+A moral representation (high $\mu$) anchors the transfer at the equal split; a self-interested one (high $\sigma$, low $\mu$) drives it to zero. A cooperative representation pins down $\rho$, which is idle in a fixed-pie game with no strategic margin: cooperative dictators act on their residual $\sigma/\mu$.
+
+\paragraph{Ultimatum Game.} If $R$ accepts, payoffs are as in the dictator game; if $R$ rejects, both players earn zero. The sender's representation now includes a believed behavior of the receiver, which we embed in an \emph{acceptance schedule}: the sender believes an offer $t$ is accepted with probability
+\begin{equation*}
+p(t)\;=\;a+b\,t, \qquad a,b>0,
+\end{equation*}
+so the belief component of her representation is the pair $\mathbf{x}=(a,b)$. Because the moral payoff is idealistic, only the material part of utility is scaled by acceptance, and the sender solves
+\begin{equation}
+\max_{t}\;\; p(t)\,\bigl(\rho-\sigma t\bigr)\;-\;\frac{\mu}{2}\left(t-\tfrac12\right)^{2}.
+\label{eq:ug_objective}
+\end{equation}
+
+\begin{proposition}[Ultimatum Offer]
+\label{prop:ug}
+The objective in~\eqref{eq:ug_objective} is strictly concave, and the optimal offer is
+\begin{equation}
+t^{UG}\;=\;\frac12\;+\;\frac{b\rho-(a+b)\,\sigma}{2b\sigma+\mu},
+\label{eq:ug_offer}
+\end{equation}
+censored to $[0,1]$; the offer is interior if and only if $\bigl|b\rho-(a+b)\,\sigma\bigr|<b\sigma+\mu/2$. At an interior optimum: (i) if $p(1)=a+b\le 1$, then $t^{UG}>t^{DG}$ for every attention profile; (ii) the offer is increasing in $\rho$, decreasing in $\sigma$, and moved toward the equal split by $\mu$ (raised when $t^{UG}<\tfrac12$, lowered when $t^{UG}>\tfrac12$); (iii) the offer is decreasing in believed acceptance $a$, with sensitivity $\bigl|\partial t^{UG}/\partial a\bigr|=\sigma/(2b\sigma+\mu)$, which is increasing in $\sigma$ and decreasing in $\mu$.
+\end{proposition}
+
+Part (i) is the strategic discipline of the ultimatum game: because low offers risk rejection, \emph{every} representation offers more than it would transfer as dictator. Part (iii) delivers two sharp empirical predictions. First, holding the representation fixed, offers should \emph{fall} with believed acceptance---a proposer who thinks low offers will be accepted makes them. Second, the belief sensitivity itself depends on attention: a moral (high-$\mu$) proposer acts on the norm regardless of what she expects, while a self-interested (high-$\sigma$) proposer tracks her beliefs. Attention to total wealth also acquires a role it lacks in the dictator game: $\partial t^{UG}/\partial\rho=b/(2b\sigma+\mu)$, which is strictly positive yet vanishes when acceptance is insensitive to the offer ($b=0$). The pie is fixed, but rejection destroys it, so weight on total wealth raises the offer purely through the fear of that destruction. 
+
+\begin{remark}[Endogenous Acceptance Schedule]
+\label{rem:foundation}
+The linear acceptance schedule can be founded in a moral psychology similar to the one we introduced above for senders. Endow the receiver with attention weights $\hat{\boldsymbol{\alpha}}=(\hat\rho,\hat\sigma,\hat\mu)$. Assume that the idealistic principle is applied to the sender's action: the receiver suffers from the offer's inequity and feels this cost whether or not the offer is accepted. Moreover, assume that rejection delivers a psychological benefit of \emph{protest}, $\psi\ge 0$, which is drawn from a distribution $F$ and weighted by moral attention. In this case, the inequity-aversion term cancels from the accept--reject margin and the receiver accepts $t$ if and only if $\hat\rho-\hat\sigma(1-t)\ge\hat\mu\,\psi$, so the acceptance probability is $F\bigl[(\hat\rho-\hat\sigma+\hat\sigma t)/\hat\mu\bigr]$. For $\psi$ uniform on $[0,\bar\Psi]$ this is exactly $p(t)=a+bt$ with
+\begin{equation*}
+a=\frac{\hat\rho-\hat\sigma}{\hat\mu\bar\Psi},\qquad b=\frac{\hat\sigma}{\hat\mu\bar\Psi}.
+\end{equation*}
+The believed acceptance schedule $(a,b)$ is therefore a representation of the \emph{receiver's motives}: imagining a punitive receiver (high $\hat\mu\bar\Psi$---the \emph{moral bad} category) scales acceptance down across the board, while imagining a self-interested receiver (high $\hat\sigma$) makes acceptance sensitive to money. Note also that $p(1)=a+b=\hat\rho/(\hat\mu\bar\Psi)$, so the condition $a+b\le 1$ in Proposition~\ref{prop:ug} has a natural reading: the imagined receiver's protest weight is large enough that even a full-split offer is not certain to be accepted.
+\end{remark}
+
+\paragraph{Trust Game.} The amount sent is multiplied by $1+r$, with $r>0$ the net return, so total wealth is $W(t)=1+rt$. The sender believes the receiver returns a share $s$, with $0\le s<1$, of the multiplied amount $(1+r)t$, so the belief component of her representation is $\mathbf{x}=s$ and the receiver's believed material payoff is $\pi_R=(1-s)(1+r)t$. We assume that $s$ is constant; Remark~\ref{rem:return} below founds the return schedule in the receiver's moral psychology, and Proposition~\ref{prop:tg_endog} shows that the comparative statics survive when the believed share declines in the send. The sender solves
+\begin{equation}
+\max_{t}\;\;\rho\,(1+rt)\;-\;\sigma\,(1+r)\,t\,(1-s)\;-\;\frac{\mu}{2}\left(t-\tfrac12\right)^{2}.
+\label{eq:tg_objective}
+\end{equation}
+
+\begin{proposition}[Trust Send]
+\label{prop:tg}
+The optimal send is
+\begin{equation}
+t^{TG}\;=\;\frac12\;+\;\frac{\rho r-\sigma(1+r)(1-s)}{\mu},
+\label{eq:tg_send}
+\end{equation}
+censored to $[0,1]$; the send is interior if and only if $\bigl|\rho r-\sigma(1+r)(1-s)\bigr|<\mu/2$. At an interior optimum, the send is increasing in $\rho$ and in the believed return share $s$ (with sensitivity $\sigma(1+r)/\mu$), decreasing in $\sigma$, and moved toward the equal split by $\mu$. As $\mu\to 0$ the problem becomes linear and the solution goes to a corner: a purely material sender sends everything if she believes the returned share exceeds the break-even level, $s(1+r)>1$, and nothing if it falls short. Finally, at interior optima, $t^{TG}\ge t^{DG}$ whenever $\rho\ge\sigma(1-s)$, with strict inequality unless $s=0$ and $\rho=\sigma$.
+\end{proposition}
+
+The trust game is where both components of the representation bite at once. Attention to total wealth is no longer idle: $\rho$ multiplies the return $r$, so cooperative senders---those who attend to the multiplied pie itself---send the most. Moral senders are anchored near the equal split. Self-interested senders send the least unless they are optimistic, and their sends are the most belief-sensitive. Whether the send sits above or below the equal split---the sign of the numerator in~\eqref{eq:tg_send}---is ambiguous: it is positive if and only if $\rho/\sigma>(1+r)(1-s)/r$, and for a purely material sender ($\rho=\sigma$) this reduces to the break-even condition $s(1+r)>1$, so the numerator is positive exactly when she believes trusting pays. The belief sensitivity $\sigma(1+r)/\mu$ holds at any interior optimum regardless of this sign (at a censored send it is locally zero). And in contrast to the ultimatum game, where beliefs enter with a \emph{negative} sign, beliefs now enter with a \emph{positive} sign: sender's optimism about the return in the trust game raises the optimal send, while sender's optimism about acceptance in the ultimatum game lowers the optimal offer. 
+
+\begin{remark}[Endogenous Return Schedule]
+\label{rem:return}
+The believed return can be founded in the same moral psychology as the acceptance schedule of Remark~\ref{rem:foundation}. Endow the imagined receiver with attention weights $\hat{\boldsymbol{\alpha}}=(\hat\rho,\hat\sigma,\hat\mu)$. Holding the output $(1+r)t$, the receiver is a dictator over it: total wealth $1+rt$ is fixed no matter how much she returns, so $\hat\rho$ is idle and she trades own earnings against a norm of returning half of a target pie $X$, choosing the returned amount $y$ to maximize $\hat\rho(1+rt)-\hat\sigma(1-t+y)-\tfrac{\hat\mu}{2}\bigl(y/X-\tfrac12\bigr)^{2}$. The natural targets are the amount sent ($X=t$), the output ($X=(1+r)t$), and total wealth ($X=1+rt$), and for every target the optimal returned share of the target is the same expression, $y^{*}/X=\tfrac12-(\hat\sigma/\hat\mu)X$. Under the first two targets the believed returned share of the output is affine and \emph{decreasing} in the send---with the amount-sent target, $s(t)=\bigl[\tfrac12-(\hat\sigma/\hat\mu)t\bigr]/(1+r)$; with the output target, $s(t)=\tfrac12-(\hat\sigma/\hat\mu)(1+r)t$. Thus, the foundation has a testable signature: believed return shares should decline in the send, which the two elicited belief points per sender (reference and chosen action) can check. The total-wealth target is ill behaved---at small sends the norm target exceeds the pot itself, forcing full return below a threshold and a kinked schedule---so the amount-sent and output targets are the tractable specifications. As in Remark~\ref{rem:foundation}, the believed schedule is a representation of the receiver's motives, here through the imagined selfishness ratio $\hat\sigma/\hat\mu$.
+\end{remark}
+
+Replacing the constant share with the founded, declining schedule---or any affine one---leaves the trust-game analysis intact:
+
+\begin{proposition}[Trust Send with a Declining Return Schedule]
+\label{prop:tg_endog}
+Under any affine believed schedule $s(t)=s_{0}-s_{1}t$ with $0\le s_{0}<1$ and $s_{1}\ge 0$, the sender's objective remains strictly concave, and the optimal send is
+\begin{equation}
+t^{TG}\;=\;\frac{\mu/2+\rho r-\sigma(1+r)(1-s_{0})}{\mu+2\sigma(1+r)s_{1}},
+\label{eq:tg_send_endog}
+\end{equation}
+censored to $[0,1]$, which nests equation~\eqref{eq:tg_send} at $s_{1}=0$; the send is interior if and only if $\bigl|\rho r-\sigma(1+r)(1-s_{0}+s_{1})\bigr|<\mu/2+\sigma(1+r)s_{1}$. At an interior optimum: (i) the send is increasing in $\rho$, decreasing in $\sigma$, and moved toward the equal split by $\mu$, as in Proposition~\ref{prop:tg}; (ii) the send is increasing in the believed level $s_{0}$, with sensitivity $\sigma(1+r)/\bigl(\mu+2\sigma(1+r)s_{1}\bigr)$---damped by the believed slope exactly as the ultimatum sensitivity $\sigma/(2b\sigma+\mu)$ is damped by $b$, with constant $s$ the undamped limit; (iii) the send is decreasing in the believed slope, $\partial t^{TG}/\partial s_{1}=-2\sigma(1+r)\,t^{TG}/\bigl(\mu+2\sigma(1+r)s_{1}\bigr)<0$: greater imagined receiver selfishness lowers the send in proportion to the send itself.
+\end{proposition}
+
+\section{Summary of Comparative Statics}
+Table~\ref{tab:cs_summary} collects the comparative statics.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\caption{\textbf{Summary of Comparative Statics}}
+\label{tab:cs_summary}
+\begin{tabular}{l cccc c}
+\toprule
+& \multicolumn{4}{c}{Attention and Beliefs} & Belief Sensitivity \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-6}
+Transfer & $\rho$ & $\sigma$ & $\mu$ & Belief & $|\partial t/\partial \text{Belief}|$ \\
+\midrule
+Dictator $t^{DG}$ & $0$ & $-$ & $\to\tfrac12$ & NA & NA \\
+Ultimatum $t^{UG}$ & $+$ & $-$ & $\to\tfrac12$ & $-$ & $\sigma/(2b\sigma+\mu)$ \\
+Trust $t^{TG}$ & $+$ & $-$ & $\to\tfrac12$ & $+$ & $\sigma(1+r)/\mu$ \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Signs at interior optima. Solutions are censored to $[0,1]$. ``$\to\tfrac12$'' means the moral weight moves the transfer toward the equal split, so over the empirically relevant range ($t<\tfrac12$) its effect is positive. In the ultimatum game, beliefs are about the constant of the acceptance schedule, $a$. In the trust game, beliefs are about the constant return share, $s$. In both strategic games, the belief sensitivity is increasing in $\sigma$ and decreasing in $\mu$.
+\end{flushleft}
+\end{table}
+
+\section{Welfare and Inequality}
+\label{sec:welfare}
+
+The comparative statics about the sender's action immediately deliver comparative statics for total surplus and for the division of payoffs, which is where representations acquire social content. Let $V_g$ denote expected total material wealth at an interior optimum---$V_{DG}=1$, $V_{UG}=p(t^{UG})$ (the pie survives only if the offer is accepted), $V_{TG}=1+r\,t^{TG}$---and let $D_g=\pi_S-\pi_R$ denote the payoff gap conditional on trade (in the ultimatum game, given acceptance; the other games have no rejection margin).
+
+\begin{proposition}[Welfare]
+\label{prop:welfare}
+At interior optima: (i) surplus attention raises welfare where the pie responds to the action, with strength quadratic in that response: $\partial V_{DG}/\partial\rho=0$, $\partial V_{UG}/\partial\rho=b^{2}/(2b\sigma+\mu)$, $\partial V_{TG}/\partial\rho=r^{2}/\mu$; (ii) own-payoff attention destroys welfare in both strategic games, $\partial V_{UG}/\partial\sigma=-b\bigl[(a+b)\mu+2b^{2}\rho\bigr]/(2b\sigma+\mu)^{2}<0$ and $\partial V_{TG}/\partial\sigma=-r(1+r)(1-s)/\mu<0$, and unambiguously lowers the counterpart's expected payoff; the sender's own expected payoff can fall as well, precisely when $b(1-2t^{UG})>a$---a steep believed schedule with a low intercept; (iii) in the strategic games, norm attention raises welfare exactly when the material pull is selfish---$\partial V_{g}/\partial\mu$ has the sign of $\tfrac12-t^{g}$---while dictator-game welfare is unaffected by any weight; (iv) optimism raises welfare: $\partial V_{UG}/\partial a=(b\sigma+\mu)/(2b\sigma+\mu)>0$ and $\partial V_{TG}/\partial s=r\sigma(1+r)/\mu>0$.
+\end{proposition}
+
+Part (i) formalizes cooperation through attention: a sender who attends to total wealth gives more precisely where giving protects (ultimatum) or produces (trust) the pie, and welfare rises with the \emph{square} of the pie's sensitivity to the action, because attention moves the action by that sensitivity and the action moves the pie by it again. Part (ii) is the reverse face: own-payoff attention is socially destructive in every strategic game, and it is not even reliably self-serving---when rejection risk is steep, the offer cut costs more in expected acceptance than it saves in shares. Part (iii) says the norm is a social technology against selfish material pulls, not a complement to cooperative ones: when the pull is generous (an optimistic cooperator in the trust game), the anchor drags the send back toward one half and destroys surplus.
+
+These statements evaluate the ultimatum pie at the sender's own beliefs: $V_{UG}=p(t^{UG})$ is expected surplus under her model of the world. This is by design---a rational-expectations welfare measure would impose exactly the belief--behavior alignment the paper denies---and the ultimatum game is the only place where the choice matters: dictator surplus is constant, and trust surplus $1+r\,t^{TG}$ is belief-free given the send, with the division evaluated at the actual share below.
+
+\begin{remark}[Believed versus Realized Welfare]
+\label{rem:realized}
+Let actual acceptance follow any increasing, differentiable schedule $\hat p$, held fixed as the sender's parameters vary, and let $\hat V_{UG}=\hat p(t^{UG})$ denote realized expected surplus at the offer chosen under the believed schedule. Parts (i)--(iii) of Proposition~\ref{prop:welfare} survive with the same signs: attention weights enter neither schedule, so they move realized surplus only through the action, $\partial\hat V_{UG}/\partial\theta=\hat p'(t^{UG})\cdot\partial t^{UG}/\partial\theta$ for $\theta\in\{\rho,\sigma,\mu\}$, and only magnitudes change. Part (iv) reverses in the ultimatum game: optimism no longer raises acceptance directly---it only lowers the offer, and actual acceptance falls with it---so $\partial\hat V_{UG}/\partial a<0$; its trust-game half is unchanged.
+\end{remark}
+
+Believed and realized welfare thus part ways exactly where beliefs and behavior do---an optimistic proposer expects more surplus and produces less---which is the forecast-error mechanism behind the ultimatum-game surplus accounting in the paper.
+
+\begin{proposition}[Inequality]
+\label{prop:inequality}
+Conditional on trade, $D_{DG}=2\sigma/\mu$ and $D_{UG}=2\bigl[(a+b)\sigma-b\rho\bigr]/(2b\sigma+\mu)$: own-payoff attention widens the gap, surplus attention narrows it (strictly in the ultimatum game), and norm attention compresses it toward zero, $\partial D_{UG}/\partial\mu=-D_{UG}/(2b\sigma+\mu)$ and $\partial D_{DG}/\partial\mu=-D_{DG}/\mu$. In the trust game, for an actual returned share $s_{a}$, $D_{TG}=1-t\bigl[1+(1+r)(1-2s_{a})\bigr]$: a larger send narrows the gap if and only if $s_{a}<(2+r)/\bigl(2(1+r)\bigr)$, and norm attention compresses the gap toward its equal-split value $\bigl[1-(1+r)(1-2s_{a})\bigr]/2$, which is zero only at $s_{a}=r/\bigl(2(1+r)\bigr)$.
+\end{proposition}
+
+The norm anchor coincides with payoff equality in the fixed-pie games but not, in general, in the trust game: with $r=2$---the experiment's tripling of the send---the equal-split send equalizes payoffs only if the receiver returns exactly one third of her output. The population reading connects these statics to the treatments: a treatment that reweights retrieved categories toward high-$\sigma$, low-$\mu$ representations in the ultimatum game destroys expected surplus and widens conditional inequality, while one that reweights toward high-$\rho$ representations and optimistic beliefs in the trust game creates surplus---the pattern of the surplus accounting in the paper.
+
+\section{From Measured Categories to Model Parameters} 
+
+The empirical categories map onto the representation as follows:
+
+\begin{itemize}
+\item A \textbf{Moral} representation corresponds to high norm attention $\mu$. 
+\item A \textbf{Self-Interest} representation corresponds to high own-earnings attention $\sigma$ with $\rho\approx\sigma$. Indeed, when the surplus weight $\rho-\sigma$ is nil, own earnings are $\sigma\pi_S$. 
+\item A \textbf{Mutual Benefit/Cooperation} representation corresponds to surplus attention, $\rho>\sigma$. 
+\end{itemize}
+
+For second movers, Remark~\ref{rem:foundation} distinguishes \textbf{Moral good} (fairness, reciprocity: $\hat\rho>\hat\sigma$ with moderate protest weight $\hat\mu\bar\Psi$) from \textbf{Moral bad} (a high protest weight $\hat\mu\bar\Psi$, hence rejection), with \textbf{Self-Interest} making acceptance money-sensitive and returns low. The belief components $(a,b)$ and $s$ are measured directly by the belief and hypothetical-belief questions. The model does not restrict how $\mathbf{x}$ relates to $\boldsymbol{\alpha}$ across people: beliefs may be anchored on a commonly held standard or may covary with own attention. 
+
+These mappings can be taken to the data. The categories themselves remain measured from text; choices enter only to quantify the attention profile each category carries. Behavior identifies attention only up to scale---a common rescaling of $(\rho,\sigma,\mu)$ leaves choices unchanged---so the objects to calibrate are the ratios $(\rho/\mu,\sigma/\mu)$, category by category, from control moments. The dictator transfer pins down selfishness: $\sigma/\mu=\tfrac12-t^{DG}$ for interior transfers. The trust send and the measured mean believed share $\bar s$ then pin down surplus attention: $\rho/\mu=\bigl[t^{TG}-\tfrac12+(\sigma/\mu)(1+r)(1-\bar s)\bigr]/r$. The ultimatum game overidentifies: given $(\rho/\mu,\sigma/\mu)$, the offer's first-order condition together with the measured reference-action acceptance belief implies an acceptance schedule $(a,b)$, which must be a genuine probability schedule ($b>0$, $a+b\le1$) and---because measured acceptance beliefs are flat across categories---should come out similar across categories; the implied belief sensitivities $\sigma/(2b\sigma+\mu)$ and $\sigma(1+r)/\mu$ can then be compared with the estimated category-by-belief interaction slopes. Two limits of the exercise are themselves predictions: for a norm-dominated category the offer sits at the anchor and the inversion carries almost no information about $(a,b)$---beliefs are unidentified exactly where the model says behavior is insensitive to them---and a category rare in the dictator game (Mutual Benefit/Cooperation) leaves a one-dimensional locus rather than a point, though the trust moment alone already locates that locus in the region $\rho>\sigma$ for every admissible $\sigma/\mu$. Finally, the two elicited belief points per proposer---hypothetical acceptance at the reference action and the belief at the chosen action---can identify $(a,b)$ from measurement alone (category-level means, when the mean chosen offer differs from the reference action): this frees the first-order condition to serve as a genuine overidentifying test, and it identifies the schedule even for norm-dominated categories, at the cost of mixing elicitation modes and conditioning on an endogenous action.
+
+\begin{remark}[Joint Distribution of Attention and Beliefs]
+\label{rem:joint}
+Because attention and beliefs are both prototype content, the mixture over categories generates a \emph{joint} distribution of $(\boldsymbol{\alpha},\mathbf{x})$, and the games aggregate that joint in a known way---so the attention--belief coupling is itself testable content, not a free object. Compare mean behavior in a heterogeneous population with the counterfactual in which attention profiles and beliefs are drawn independently from their marginals. At interior optima the trust send is bilinear in the selfishness ratio and the believed share, so the entire dependence of the mean send on the coupling runs through a single moment:
+\begin{equation*}
+E\bigl[t^{TG}\bigr]-E_{\perp}\bigl[t^{TG}\bigr]\;=\;(1+r)\,\mathrm{Cov}\!\left(\frac{\sigma}{\mu},\,s\right),
+\end{equation*}
+where $E_{\perp}$ holds both marginals fixed ($\rho/\mu$ enters the send linearly, so no other covariance moves the mean). Beliefs anchored on a commonly held standard imply a zero covariance---the marginals suffice---while projection, a self-interested sender imagining an ungenerous receiver, implies a negative covariance: mean sends fall short of the independence counterfactual. No such formula exists for the ultimatum game, where the believed slope enters the denominator $2b\sigma+\mu$ and the independence gap must be computed numerically---though with acceptance beliefs common across categories the model predicts it is close to zero; likewise, under the declining schedule of Remark~\ref{rem:return} exactness obtains only in the constant-$s$ limit $s_{1}=0$. Category-level calibration supplies the joint directly---each category carries an attention profile and a belief---so the covariance and the counterfactual are byproducts of the exercise just described.
+\end{remark}
+
+\section{How Representations Are Determined}
+\label{sec:determination}
+
+The sender does not see a game form; she sees a \emph{description} $\mathbf{d}=(\mathbf{r}_d,\boldsymbol{\kappa}_d)$, where $\mathbf{r}_d$ is the representation implied by a literal reading of the rules and $\boldsymbol{\kappa}_d$ is the context: the labels, the cover story, the setting in which the interaction is embedded. Her memory contains \emph{categories} of experience $c\in\mathbf{C}$---classes of situations she has lived or can imagine, such as sharing a windfall, haggling over a price, investing in a joint project---each with a typical representation $\mathbf{r}_c$, a typical context $\boldsymbol{\kappa}_c$, and a time-weighted frequency $F_c$ \citep{BordaloGennaioliShleifer2020, BordaloGennaioliLanzaniShleifer2026}. Facing the description, she selects a category and a representation $\mathbf{r}=(\boldsymbol{\alpha},\mathbf{x})$ to solve
+\begin{equation}
+\max_{c\in\mathbf{C},\,\mathbf{r}\in\mathbf{R}}\;\;F_c\cdot S\bigl[(\mathbf{r},\boldsymbol{\kappa}_d),(\mathbf{r}_c,\boldsymbol{\kappa}_c)\bigr]\;+\;S\bigl[(\mathbf{r},\boldsymbol{\kappa}_d),(\mathbf{r}_d,\boldsymbol{\kappa}_d)\bigr]\;+\;\epsilon_c,
+\label{eq:retrieval}
+\end{equation}
+where $S$ is a similarity function \citep{Tversky1977, GilboaSchmeidler1995} and $\epsilon_c$ is an i.i.d.\ extreme-value shock. The chosen representation trades off fidelity to the description (the second term) against assimilation to the best-fitting category of experience (the first term).
+
+Equation~\eqref{eq:retrieval} has two forces, and each of the experimental manipulations targets one of them. First, a higher frequency $F_c$ fosters a category's retrieval, increasing the likelihood that the sender slants her representation toward $\mathbf{r}_c$, \emph{for a given description}. This is the \textbf{story lever}: reading and summarizing a story about a workplace bonus or about charitable aid is a recent, vivid experience that raises the retrieval weight of its category, while the description of the game itself is unchanged. Second, a change in the context $\boldsymbol{\kappa}_d$ that makes the description more similar to the contexts $\boldsymbol{\kappa}_c$ of experiences in some category also fosters that category's retrieval, \emph{for given frequencies}. This is the \textbf{frame lever}: describing the identical game as a transaction between a data provider and a broker moves the description itself into the neighborhood of market experiences.
+
+The frequency weight has a natural recency structure. Let each experience $e$ in category $c$ have age $\tau_{e}$ and let $F_{c}=\sum_{e\in c}\delta^{\tau_{e}}$ with $\delta\in(0,1)$: frequency is experience discounted by recency. The description just read is then itself the most recent trace---age zero, weight $\delta^{0}=1$---which is why fidelity carries a fixed unit weight in equation~\eqref{eq:retrieval}: both terms are recency-weighted similarities. This reading disciplines the trade-off between memory and description. A story is an age-zero experience added to its category, so a single story can rival a lifetime of discounted experience---which is why the story lever works at all; and when discounting is strong every $F_{c}$ is small, so the description dominates and memory cannot drown it unless a category is both frequent and recent. A natural refinement scales fidelity by a cue-strength parameter increasing in the description's distinctiveness---its dissimilarity from the stored contexts---so that a description unlike anything in memory resists assimilation.
+
+Three implications organize the empirical analysis.
+\begin{enumerate}
+\item \emph{Heterogeneity within a context.} Within a treatment, people hold different representations---they have different histories $F_c$ and draw different shocks $\epsilon_c$---so behavior is heterogeneous, and its heterogeneity is structured by the mixture of retrieved categories, not merely by noise. 
+\item \emph{Instability across contexts.} Across treatments, the distribution of retrieved categories shifts---through $F_c$ for the stories, through $\boldsymbol{\kappa}_d$ for the frames---and the action moves in the direction that combines the attention differences (across $\boldsymbol{\alpha}$) and the belief differences (across $\mathbf{x}$) of the categories gaining and losing weight. Holding category-typical actions fixed, the mean effect of a manipulation is the composition change $\Delta E[t^{g}]=\sum_{c}\Delta q_{c}\,\bar{t}_{c}^{\,g}$, where $q_{c}$ is the retrieval probability of category $c$ and $\bar{t}_{c}^{\,g}$ its typical action in game $g$: the product of a retrieval shift, whose size is gated by the similarity between the game's description and the manipulated content, and the spread of category-typical actions in that game. Both factors are game-specific and measurable, so the same manipulation can move one game strongly and another barely at all---not because any payoff element drops out of the representation, but because retrieval shifts less where similarity is low and matters less where the retrieved categories act alike.
+\item \emph{Forecast errors and learning.} Nothing in~\eqref{eq:retrieval} guarantees that the two players' representations are shared or mutually consistent: the sender's imagined receiver is retrieved from the sender's memory, not from the receiver's behavior. Systematic, context-dependent forecast errors are therefore an equilibrium object of the theory, not a pathology---and learning in games under a stable context can be read as convergence toward representations that no longer generate salient surprises, which is what renders equilibria stable.
+\end{enumerate}
+
+The theory's inputs are, in principle, measurable: the similarity of the experimental contexts to broad categories of experience---cooperation problems, conflict problems, moral problems---and to receiver types who accept or reject, return or keep. 
+
+\section{Receiver's Behavior}
+\label{sec:receiver}
+
+So far the receiver exists only as the sender's belief. The same two building blocks---moral psychology given a representation (Remarks~\ref{rem:foundation} and~\ref{rem:return}) and retrieval given a description (equation~\eqref{eq:retrieval})---turn her into a full player. The receiver's description differs from the sender's in one crucial way: it contains the sender's action. She faces $\mathbf{d}_R=(\mathbf{r}_d,\boldsymbol{\kappa}_d,t)$---not an abstract game, but a game in which she has just been offered $t$ or entrusted $(1+r)t$. Retrieval then assigns category $c$ a probability $q_c(t)$ (a logit, under the extreme-value shocks), \emph{with the sender's action as a contextual cue}, and conditional on the category, behavior follows the second-mover margins already derived---reading the hatted weights of Remarks~\ref{rem:foundation} and~\ref{rem:return} as the receiver's own retrieved attention profile: an acceptance schedule $p_c(t)=a_c+b_c t$ from the protest psychology, a returned share $s_c(t)=\tfrac12-(\hat\sigma/\hat\mu)_c(1+r)t$ from the dictator-over-the-output problem (the output target of Remark~\ref{rem:return}; the amount-sent target gives another affine declining schedule, and nothing below depends on the choice). Aggregate second-mover behavior is the mixture
+\begin{equation}
+p(t)=\sum_c q_c(t)\,p_c(t),\qquad s(t)=\sum_c q_c(t)\,s_c(t).
+\label{eq:receiver_mixture}
+\end{equation}
+The sender's action now works through two channels,
+\begin{equation*}
+p'(t)\;=\;\underbrace{\sum_c q_c(t)\,p_c'(t)}_{\text{margin within categories}}\;+\;\underbrace{\sum_c q_c'(t)\,p_c(t)}_{\text{composition across categories}},
+\end{equation*}
+and if low offers retrieve condemnation---an insulting offer resembles situations of exploitation, so $q_{\text{Moral bad}}$ falls with $t$ and the released probability mass flows to categories with higher acceptance---the composition term is positive and the aggregate schedule is steeper than the within-category margins alone, and can be steeper than \emph{every} category schedule. Three consequences follow. First, measured acceptance can respond to offers more strongly than any fixed protest psychology implies: part of the response is a change in what the offer makes the receiver think the situation \emph{is}. Second, the mixture is measurable: receiver categories should covary with the action faced---condemnation concentrated at low offers, cooperation at generous sends---which the second-mover representation data can check directly. Third, treatments reach the receiver through the same two levers as the sender ($F_c$ and $\boldsymbol{\kappa}_d$), but nothing forces the two sides to move equally---the asymmetry between first- and second-mover treatment effects that the paper documents.
+
+This closes the model on the forecast-error side. The sender's imagined receiver---the schedule $(a,b)$ or the share $s$---is retrieved from the \emph{sender's} memory given the sender's description; actual second-mover behavior is retrieved from the \emph{receiver's} memory given a description that includes the action. Nothing aligns the two retrievals, so systematic, context-dependent forecast errors are an equilibrium object, and a treatment that moves the two descriptions differently moves \emph{mean} forecast errors---the paper's treatment-level result. Learning under a stable context is then convergence of the sender's retrieved receiver toward the receiver's retrieved self.
+
+\section{Relation to BGLS (2026)}
+\label{sec:bgls}
+
+Equation~\eqref{eq:retrieval} is, structurally, the description-augmented recognition problem of \citet{BordaloGennaioliLanzaniShleifer2026} (their eq.~20). The mapping is exact. Our chosen representation $\mathbf{r}=(\boldsymbol{\alpha},\mathbf{x})$ plays the role of their tuned attention vector $\alpha_P$; our category prototype $(\mathbf{r}_c,\boldsymbol{\kappa}_c)$ and frequency $F_c$ are their prototype $(\alpha_c,\kappa_c)$ and recency-weighted frequency, defined exactly as in Section~\ref{sec:determination}: $F_c=\sum_{\tau\in c}\delta^{t-\tau}$ (their footnote~7). Our fidelity term is their description-similarity term, which likewise enters \emph{without} a frequency multiplier: in their reading the present description is prominent as current experience; in the age-zero-trace reading of Section~\ref{sec:determination} it carries weight $\delta^{0}=1$---the same number for the same reason. Our extreme-value shock is their $\epsilon_c$ with precision $\lambda$, so retrieval probabilities are their logit (their Proposition~2), and \emph{interference} is the softmax denominator---competition among categories---in both models: fidelity and interference are distinct objects, in their framework as in ours. Two of their results transfer directly: attention is tuned to fit the category, neglecting diagnostic-but-discrepant context (their Proposition~1), which makes categorization sticky in $F_c$; and a change in a feature's bottom-up salience can re-categorize the problem (their Proposition~7)---their theory of framing is our frame lever. The cue-strength refinement of Section~\ref{sec:determination} is their contrast weights: they scale similarity feature by feature by contrast $\sigma$ (description contrast $\sigma_\delta$, bottom-up; category contrast $\sigma_c$, from the variability of past experience) and resolve fidelity versus assimilation exactly---with linear distance, the representation follows the description on a feature if and only if $\sigma_{c}F_c/\sigma_{\delta}<1$ (their eq.~22): the description wins when the category is unfamiliar or the current cue is distinctive.
+
+Two differences are substantive, and they are what the games application adds. First, the attended features. Their features are hedonic and event features of lotteries whose values and probabilities are \emph{known}: attention $\alpha\in[0,1]$ shades each perceived value relative to its true one, so the bound is a real restriction. Our features are the payoff elements of a strategic problem---own earnings, total surplus, the sharing norm---for which no veridical attention profile exists: behavior identifies only relative weights, so the undistorted case $\rho=\sigma=\mu=1$ is a statement about ratios (no motive slanted relative to another), and their bound has no analogue here. Second, and more important, beliefs. In their framework perceived probabilities are attention-distortions of an objective $\mathbb{P}$ (their eq.~2). In a one-shot game there is no objective distribution over the counterpart's behavior to distort: the category supplies the belief itself---the imagined receiver $(a,b)$ or $s$ is \emph{prototype content}, the counterpart typical of situations in that category. This is the model's one genuinely new retrieval object, and it is what makes systematic forecast errors an equilibrium possibility. BGLS close by listing strategic behavior as a natural application of problem recognition; the present model is that application.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+
+\section{Proofs of Propositions}
+\label{app:proofs}
+
+Throughout, attention weights are strictly positive, $\rho,\sigma,\mu>0$, and in the ultimatum game $a,b>0$. Each objective below is strictly concave and differentiable on $[0,1]$, so the constrained maximizer is unique and equals the unconstrained solution projected onto $[0,1]$ (the censoring in the propositions); comparative statics are stated at interior optima, where the projection is the identity.
+
+\begin{proof}[Proof of Proposition~\ref{prop:dg}]
+With $W(t)=1$ and $\pi_R=t$, the objective is $u(t)=\rho-\sigma t-\frac{\mu}{2}\left(t-\frac12\right)^{2}$, which is strictly concave ($u''=-\mu<0$). The first-order condition $-\sigma-\mu\left(t-\frac12\right)=0$ gives $t^{\ast}=\frac12-\sigma/\mu$. Since $\sigma/\mu>0$, $t^{\ast}<\frac12$, so the upper bound never binds and $t^{DG}=\max\{0,\,t^{\ast}\}<\frac12$. The solution is strictly decreasing in $\sigma/\mu$ where interior and constant at zero for $\sigma/\mu\ge\frac12$; $\rho$ enters the objective only through the additive constant $\rho\,W(t)=\rho$, so it leaves the maximizer unchanged.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ug}]
+The objective $v(t)=(a+bt)(\rho-\sigma t)-\frac{\mu}{2}\left(t-\frac12\right)^{2}$ has $v'(t)=b\rho-a\sigma-2b\sigma t-\mu\left(t-\frac12\right)$ and $v''(t)=-(2b\sigma+\mu)<0$: $v$ is strictly concave. The first-order condition gives $t\,(2b\sigma+\mu)=b\rho-a\sigma+\frac{\mu}{2}$, and subtracting $\frac12$ from the resulting $t$ yields~\eqref{eq:ug_offer}. The censored solution lies in $(0,1)$ if and only if $\bigl|b\rho-(a+b)\,\sigma\bigr|<b\sigma+\mu/2$, half the curvature $2b\sigma+\mu$.
+
+(i) If $t^{DG}=0$, interiority gives $t^{UG}>0=t^{DG}$. If $t^{DG}=\frac12-\sigma/\mu>0$, putting the difference over the common denominator $\mu\,(2b\sigma+\mu)$ gives
+\begin{equation*}
+t^{UG}-t^{DG}\;=\;\frac{b\rho-(a+b)\,\sigma}{2b\sigma+\mu}+\frac{\sigma}{\mu}\;=\;\frac{\mu b\rho+2b\sigma^{2}+\mu\sigma\,(1-a-b)}{\mu\,(2b\sigma+\mu)},
+\end{equation*}
+and $a+b\le 1$ makes every term in the numerator non-negative, with $\mu b\rho>0$; hence $t^{UG}>t^{DG}$.
+
+(ii) Differentiating~\eqref{eq:ug_offer},
+\begin{equation*}
+\frac{\partial t^{UG}}{\partial \rho}=\frac{b}{2b\sigma+\mu}>0,\qquad
+\frac{\partial t^{UG}}{\partial \sigma}=-\,\frac{(a+b)\,\mu+2b^{2}\rho}{(2b\sigma+\mu)^{2}}<0,\qquad
+\frac{\partial t^{UG}}{\partial \mu}=-\,\frac{t^{UG}-\tfrac12}{2b\sigma+\mu},
+\end{equation*}
+where the middle expression follows from the quotient rule and is negative unconditionally and the last expression is positive when $t^{UG}<\frac12$ and negative when $t^{UG}>\frac12$: the norm weight pulls the offer toward the equal split.
+
+(iii) Only the numerator of the second term in~\eqref{eq:ug_offer} depends on $a$, so $\partial t^{UG}/\partial a=-\sigma/(2b\sigma+\mu)<0$. The sensitivity $\sigma/(2b\sigma+\mu)$ has derivative $\mu/(2b\sigma+\mu)^{2}>0$ in $\sigma$ and $-\sigma/(2b\sigma+\mu)^{2}<0$ in $\mu$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:tg}]
+The objective $w(t)=\rho\,(1+rt)-\sigma(1+r)(1-s)\,t-\frac{\mu}{2}\left(t-\frac12\right)^{2}$ has $w'(t)=\rho r-\sigma(1+r)(1-s)-\mu\left(t-\frac12\right)$ and $w''(t)=-\mu<0$, so the first-order condition gives~\eqref{eq:tg_send}. The censored solution lies in $(0,1)$ if and only if $\bigl|\rho r-\sigma(1+r)(1-s)\bigr|<\mu/2$. At an interior optimum,
+\begin{equation*}
+\frac{\partial t^{TG}}{\partial \rho}=\frac{r}{\mu}>0,\qquad
+\frac{\partial t^{TG}}{\partial s}=\frac{\sigma(1+r)}{\mu}>0,\qquad
+\frac{\partial t^{TG}}{\partial \sigma}=-\,\frac{(1+r)(1-s)}{\mu}<0,
+\end{equation*}
+and $\partial t^{TG}/\partial\mu=-\bigl[\rho r-\sigma(1+r)(1-s)\bigr]/\mu^{2}=-\bigl(t^{TG}-\tfrac12\bigr)/\mu$: the norm weight pulls the send toward the equal split. As $\mu\to 0$ the objective converges to the affine function $\rho+\bigl[\rho r-\sigma(1+r)(1-s)\bigr]\,t$, whose maximizer is $t=1$ if the slope is positive and $t=0$ if it is negative. For a purely material sender, $\rho=\sigma$, the objective reduces to $\sigma\,\pi_S$ with $\pi_S=1+t\,\bigl[s(1+r)-1\bigr]$, so the slope is $\sigma\bigl[s(1+r)-1\bigr]$: she sends everything if $s(1+r)>1$ and nothing if $s(1+r)<1$. Finally, if $t^{DG}=0$, interiority gives $t^{TG}>0=t^{DG}$; if $t^{DG}=\frac12-\sigma/\mu$, then
+\begin{equation*}
+t^{TG}-t^{DG}\;=\;\frac{\rho r-\sigma(1+r)(1-s)+\sigma}{\mu}\;=\;\frac{r\,\bigl[\rho-\sigma(1-s)\bigr]+\sigma s}{\mu},
+\end{equation*}
+a sum of two non-negative terms when $\rho\ge\sigma(1-s)$, both zero only if $s=0$ and $\rho=\sigma$---the sender who expects nothing back and puts no weight on the surplus, for whom the material pull of sending, $\rho r-\sigma(1+r)=-\sigma$, is exactly the dictator's.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:tg_endog}]
+The objective $w(t)=\rho\,(1+rt)-\sigma(1+r)\,\bigl(1-s_{0}+s_{1}t\bigr)\,t-\frac{\mu}{2}\left(t-\frac12\right)^{2}$ has $w'(t)=\rho r-\sigma(1+r)(1-s_{0})-2\sigma(1+r)s_{1}t-\mu\left(t-\frac12\right)$ and $w''(t)=-\bigl(\mu+2\sigma(1+r)s_{1}\bigr)<0$ for every $s_{1}\ge0$: $w$ is strictly concave. The first-order condition gives $t\,\bigl(\mu+2\sigma(1+r)s_{1}\bigr)=\mu/2+\rho r-\sigma(1+r)(1-s_{0})$, which is~\eqref{eq:tg_send_endog} and reduces to~\eqref{eq:tg_send} at $s_{1}=0$. Write $D\equiv\mu+2\sigma(1+r)s_{1}$ and $N\equiv\mu/2+\rho r-\sigma(1+r)(1-s_{0})$, so that $t^{TG}=N/D$ and $t^{TG}-\tfrac12=\bigl[\rho r-\sigma(1+r)(1-s_{0}+s_{1})\bigr]/D$; the censored solution lies in $(0,1)$ if and only if $\bigl|\rho r-\sigma(1+r)(1-s_{0}+s_{1})\bigr|<D/2=\mu/2+\sigma(1+r)s_{1}$, half the curvature. The comparative statics below hold at an interior optimum, where $0<N<D$.
+
+(i) $\partial t^{TG}/\partial\rho=r/D>0$; $\partial t^{TG}/\partial\sigma=-(1+r)\bigl[(1-s_{0})D+2s_{1}N\bigr]/D^{2}<0$ since $N>0$; and $\partial t^{TG}/\partial\mu=\bigl(\tfrac12 D-N\bigr)/D^{2}=-\bigl(t^{TG}-\tfrac12\bigr)/D$, so the norm weight pulls the send toward the equal split.
+
+(ii) Only $N$ depends on $s_{0}$: $\partial t^{TG}/\partial s_{0}=\sigma(1+r)/D>0$, and $D\ge\mu$ with equality exactly at $s_{1}=0$ gives the damping.
+
+(iii) Only $D$ depends on $s_{1}$: $\partial t^{TG}/\partial s_{1}=-2\sigma(1+r)\,N/D^{2}=-2\sigma(1+r)\,t^{TG}/D<0$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:welfare}]
+Welfare statements follow from the chain rule $\partial V_g/\partial\theta=W_g'\cdot\partial t^{g}/\partial\theta$, where the pie's sensitivity to the action is $W_{UG}'=p'(t)=b$ (expected pie $p(t)\cdot 1$) and $W_{TG}'=r$, combined with the action derivatives in the proofs of Propositions~\ref{prop:ug} and~\ref{prop:tg}: for (i), $\partial V_{UG}/\partial\rho=b\cdot b/(2b\sigma+\mu)$ and $\partial V_{TG}/\partial\rho=r\cdot r/\mu$; for (ii), $\partial V_{UG}/\partial\sigma=b\cdot\partial t^{UG}/\partial\sigma<0$ and $\partial V_{TG}/\partial\sigma=r\cdot\partial t^{TG}/\partial\sigma<0$; for (iii), $\partial V_g/\partial\mu=W_g'\cdot\partial t^{g}/\partial\mu$, and both games have $\partial t^{g}/\partial\mu$ proportional to $-(t^{g}-\tfrac12)$; for (iv), $\partial V_{UG}/\partial a=1+b\cdot\partial t^{UG}/\partial a=1-b\sigma/(2b\sigma+\mu)$ and $\partial V_{TG}/\partial s=r\cdot\sigma(1+r)/\mu$. The counterpart's expected payoff: in the ultimatum game $\partial\bigl[p(t)t\bigr]/\partial\sigma=\bigl(bt+p(t)\bigr)\,\partial t^{UG}/\partial\sigma<0$; in the trust game $\partial\bigl[(1-s_a)(1+r)t\bigr]/\partial\sigma=(1-s_a)(1+r)\,\partial t^{TG}/\partial\sigma<0$. The sender's own expected payoff: $\partial\bigl[p(t)(1-t)\bigr]/\partial\sigma=\bigl[b(1-t^{UG})-p(t^{UG})\bigr]\,\partial t^{UG}/\partial\sigma$, and $b(1-t)-p(t)=b(1-2t)-a$, so with $\partial t^{UG}/\partial\sigma<0$ the sender's own expected payoff falls precisely when $b(1-2t^{UG})>a$; a witness: $a=1/20$, $b=3/5$, $\rho=1/10$, $\sigma=1$, $\mu=1$ gives the interior offer $t^{UG}=0.232$, $b(1-2t^{UG})=0.32>0.05=a$, and $\partial\bigl[p(t)(1-t)\bigr]/\partial\sigma=-0.04<0$.
+\end{proof}
+
+\begin{proof}[Proof of Remark~\ref{rem:realized}]
+For an actual acceptance schedule $\hat p$ with $\hat p'>0$, the chain rule gives $\partial\hat V_{UG}/\partial\theta=\hat p'(t^{UG})\cdot\partial t^{UG}/\partial\theta$ for $\theta\in\{\rho,\sigma,\mu\}$, the same signs as in (i)--(iii), while $\partial\hat V_{UG}/\partial a=\hat p'(t^{UG})\cdot\partial t^{UG}/\partial a=-\hat p'\,\sigma/(2b\sigma+\mu)<0$, reversing (iv); in the trust game $\hat V_{TG}=1+r\,t^{TG}$ coincides with $V_{TG}$, so $\partial\hat V_{TG}/\partial s=r\sigma(1+r)/\mu>0$ is unchanged.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:inequality}]
+Conditional on trade, $D_{DG}=1-2t^{DG}=2\sigma/\mu$ and $D_{UG}=1-2t^{UG}=2\bigl[(a+b)\sigma-b\rho\bigr]/(2b\sigma+\mu)$, whence $\partial D_{UG}/\partial\sigma=2\bigl[(a+b)\mu+2b^{2}\rho\bigr]/(2b\sigma+\mu)^{2}>0$, $\partial D_{UG}/\partial\rho=-2b/(2b\sigma+\mu)<0$, and $\partial D_{UG}/\partial\mu=-D_{UG}/(2b\sigma+\mu)$ by direct differentiation. In the trust game $D_{TG}=(1-t)+s_a(1+r)t-(1-s_a)(1+r)t=1-t\bigl[1+(1+r)(1-2s_a)\bigr]$, affine in $t$ with slope $-k$, $k\equiv1+(1+r)(1-2s_a)$, positive iff $s_a<(2+r)/\bigl(2(1+r)\bigr)$; since $\partial t^{TG}/\partial\mu=-(t^{TG}-\tfrac12)/\mu$, $\partial D_{TG}/\partial\mu=-\bigl(D_{TG}-D_{TG}(\tfrac12)\bigr)/\mu$ with $D_{TG}(\tfrac12)=1-k/2=\bigl[1-(1+r)(1-2s_a)\bigr]/2$, which is zero iff $s_a=r/\bigl(2(1+r)\bigr)$.
+\end{proof}
+
+\end{document}
