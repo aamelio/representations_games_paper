@@ -335,8 +335,11 @@ def write_sp_category_table(
 ) -> None:
     TABLE_DIR.mkdir(parents=True, exist_ok=True)
     work = df.copy()
-    work["sp_group"] = np.where(work["sp_num"] > 1, "High SP", "Low SP")
-    denom = len(work)
+    work["sp_group"] = np.where(
+        work["sp_num"] > 1,
+        "High social proximity",
+        "Low social proximity",
+    )
 
     lines = [
         "\\begin{table}[!htbp]",
@@ -345,15 +348,15 @@ def write_sp_category_table(
         f"\\label{{{label}}}",
         "\\begin{tabular}{" + "l" + "c" * len(categories) + "}",
         "\\toprule",
-        "Social Proximity & " + " & ".join(category_labels[category].replace("\n", " ") for category in categories) + " \\\\",
+        "Counterpart proximity & " + " & ".join(category_labels[category].replace("\n", "") for category in categories) + " \\\\",
         "\\midrule",
     ]
 
-    for sp_group in ["Low SP", "High SP"]:
+    for sp_group in ["Low social proximity", "High social proximity"]:
         row = [sp_group]
-        subset = work[work["sp_group"] == sp_group]
         for category in categories:
-            share = len(subset[subset["category"] == category]) / denom if denom else np.nan
+            subset = work[work["category"] == category]
+            share = (subset["sp_group"] == sp_group).mean() if len(subset) else np.nan
             row.append(f"{share * 100:.1f}\\%")
         lines.append(" & ".join(row) + " \\\\")
 
@@ -364,7 +367,7 @@ def write_sp_category_table(
             "\\begin{flushleft}",
             (
                 f"\\footnotesize Notes: Pooled across all games and treatments for {player_label}. "
-                "Sample is restricted to the displayed substantive categories, so the table entries sum to 100\\% across the two rows and all columns."
+                "Columns report the distribution of counterpart proximity within each stated reason category and sum to 100\\%."
             ),
             "\\end{flushleft}",
             "\\end{table}",
@@ -1382,7 +1385,7 @@ def main() -> None:
         P1_CATEGORIES,
         P1_CATEGORY_LABELS,
         "player1_sp_by_category.tex",
-        "Player 1: Social Proximity by Substantive Category",
+        "Player 1: Counterpart Proximity within Stated Reason Category",
         "tab:player1_sp_by_category",
     )
     write_sp_category_table(
@@ -1391,7 +1394,7 @@ def main() -> None:
         P2_CATEGORIES,
         P2_CATEGORY_LABELS,
         "player2_sp_by_category.tex",
-        "Player 2: Social Proximity by Substantive Category",
+        "Player 2: Counterpart Proximity within Stated Reason Category",
         "tab:player2_sp_by_category",
     )
     build_representation_figure(p1, p2)
