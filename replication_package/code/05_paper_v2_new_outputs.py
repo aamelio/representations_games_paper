@@ -23,6 +23,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
@@ -68,6 +69,10 @@ CAT_COLOR = {"Moral": "#4C566A", "Self-interest": "#C65D3A",
 CAT_MARKER = {"Moral": "o", "Self-interest": "s", "Mutual Benefit / Cooperation": "^"}
 CAT_LS = {"Moral": "-", "Self-interest": "--", "Mutual Benefit / Cooperation": "-."}
 CONTROL_COLOR, MARKET_COLOR = "#4C566A", "#C65D3A"
+# One color per game (matches GAME_COLORS in script 02) for the predicted-vs-actual
+# dispersion scatter; one marker per comparison.
+GAME_COLOR = {"dgkw": "#4C566A", "dglt": "#7B879D", "ug": "#D08770", "tg": "#8FBCBB"}
+COMPARISON_MARKER = {"Market vs Control": "o", "Aid vs Bonus": "s"}
 
 rng = np.random.default_rng(20260709)
 stats_lines = []
@@ -223,7 +228,7 @@ lines = [
     r"\caption{\textbf{Belief Sensitivity of Actions, by Representation Category}}",
     r"\label{tab:belief_sensitivity}",
     r"\begin{tabular}{ll rr rr}", r"\toprule",
-    r" & & \multicolumn{2}{c}{Control} & \multicolumn{2}{c}{All arms (arm FE)} \\",
+    r" & & \multicolumn{2}{c}{Control} & \multicolumn{2}{c}{All conditions (condition FE)} \\",
     r"\cmidrule(lr){3-4}\cmidrule(lr){5-6}",
     r"Game & Category & Slope & (SE) & Slope & (SE) \\", r"\midrule",
 ]
@@ -242,12 +247,13 @@ lines += [
     r"\begin{flushleft}",
     r"\footnotesize Notes: OLS slopes of the Player 1 action (share) on the hypothetical belief at "
     r"the one-third reference action, estimated separately by representation category; robust (HC1) "
-    r"standard errors. ``All arms'' pools the four conditions with arm fixed effects. "
+    r"standard errors. ``All conditions'' pools the four conditions with condition fixed effects. "
     f"Slope-equality F-tests across categories: UG control $p={eq_tests[('ug', 'Control')]:.3f}$, "
     f"UG pooled $p={eq_tests[('ug', 'Pooled')]:.3f}$, TG control $p={eq_tests[('tg', 'Control')]:.3f}$, "
     f"TG pooled $p={eq_tests[('tg', 'Pooled')]:.3f}$. "
-    r"Model predictions: negative slopes in the UG, positive in the TG\@; magnitude largest for "
-    r"Self-interest (the sensitivity is increasing in $\sigma$ and decreasing in $\mu$). "
+    r"Model predictions: negative slopes in the UG, positive in the TG for every category (the "
+    r"equal-payoff norm anchor moves with the believed return); magnitude largest for "
+    r"Self-interest, whose material channel adds to the common anchor channel. "
     r"The UG Mutual Benefit/Cooperation cell is very small and should be read accordingly.",
     r"\end{flushleft}", r"\end{table}",
 ]
@@ -337,7 +343,7 @@ lines = [
     r"\caption{\textbf{Heterogeneity Tied to Representations: Variance Decomposition}}",
     r"\label{tab:heterogeneity_decomposition}",
     r"\begin{tabular}{ll rrr}", r"\toprule",
-    r"Game & Arm & $N$ & SD of action & Between-category share \\", r"\midrule",
+    r"Game & Condition & $N$ & SD of action & Between-category share \\", r"\midrule",
 ]
 prev = None
 for _, r in het.iterrows():
@@ -348,12 +354,45 @@ lines += [
     r"\bottomrule", r"\end{tabular}",
     r"\begin{flushleft}",
     r"\footnotesize Notes: Player 1, classified responses only. ``Between-category share'' is the "
-    r"share of the within-arm variance of the action lying between the three representation "
+    r"share of the within-condition variance of the action lying between the three representation "
     r"categories (the $R^2$ of the action on category dummies).",
     r"\end{flushleft}", r"\end{table}",
 ]
 (TABLE_DIR / "heterogeneity_decomposition.tex").write_text("\n".join(lines) + "\n")
 log("saved output/tables/heterogeneity_decomposition.tex")
+
+# Slimmed main-text version: the three control rows (DG-KW, UG, TG) plus the
+# DG-KW Market row (the 0.66 -> 0.14 between-category collapse with the SD rise).
+# Same booktabs layout as the full table; full decomposition (all games,
+# conditions, DG-LT) stays in heterogeneity_decomposition.tex in the appendix.
+main_selection = [("DG-KW", "Control"), ("DG-KW", "Market"),
+                  ("UG", "Control"), ("TG", "Control")]
+het_indexed = het.set_index(["Game", "Arm"])
+main_lines = [
+    r"\begin{table}[!htbp]", r"\centering", r"\small",
+    r"\renewcommand{\arraystretch}{1.15}",
+    r"\caption{\textbf{Heterogeneity Tied to Representations: Variance Decomposition}}",
+    r"\label{tab:heterogeneity_decomposition_main}",
+    r"\begin{tabular}{ll rrr}", r"\toprule",
+    r"Game & Condition & $N$ & SD of action & Between-category share \\", r"\midrule",
+]
+prev = None
+for game_name, arm_name in main_selection:
+    r = het_indexed.loc[(game_name, arm_name)]
+    gname = game_name if game_name != prev else ""
+    prev = game_name
+    main_lines.append(f"{gname} & {arm_name} & {int(r.N)} & {r.SD:.3f} & {r['Between share']:.3f} \\\\")
+main_lines += [
+    r"\bottomrule", r"\end{tabular}",
+    r"\begin{flushleft}",
+    r"\footnotesize Notes: Player 1, classified responses only. ``Between-category share'' is the "
+    r"share of the within-condition variance of the action lying between the three representation "
+    r"categories (the $R^2$ of the action on category dummies). The full decomposition for all "
+    r"games, conditions, and DG-LT is reported in the appendix table.",
+    r"\end{flushleft}", r"\end{table}",
+]
+(TABLE_DIR / "heterogeneity_decomposition_main.tex").write_text("\n".join(main_lines) + "\n")
+log("saved output/tables/heterogeneity_decomposition_main.tex")
 
 log("--- predicted vs actual dispersion (mixture reweighting, pooled conditionals) ---")
 comp_rows = []
@@ -401,13 +440,74 @@ lines += [
     r"\bottomrule", r"\end{tabular}",
     r"\begin{flushleft}",
     r"\footnotesize Notes: Player 1, classified responses only. Predicted values reweight the "
-    r"category-conditional action distributions (means and variances pooled across the two arms of "
-    r"each comparison) by each arm's category shares; the predicted effect is the mixture "
-    r"implication of the representation shift alone. Actual values are the raw arm differences.",
+    r"category-conditional action distributions (means and variances pooled across the two conditions of "
+    r"each comparison) by each condition's category shares; the predicted effect is the mixture "
+    r"implication of the representation shift alone. Actual values are the raw between-condition differences.",
     r"\end{flushleft}", r"\end{table}",
 ]
 (TABLE_DIR / "heterogeneity_predicted_actual.tex").write_text("\n".join(lines) + "\n")
 log("saved output/tables/heterogeneity_predicted_actual.tex")
+
+# Figure version of the dispersion accounting: predicted vs actual on the mean
+# and the SD, six cells only (DG-KW/UG/TG; DG-LT stays in the appendix table).
+# Style mirrors the predicted-vs-actual scatters in output/figures/fitted_fullpooled/
+# (white background, serif, 45-degree dashed reference line, light grid).
+LABEL_TO_CODE = {v: k for k, v in GAME_LABELS.items()}
+FIG_GAMES = ["dgkw", "ug", "tg"]
+fig_rows = [r for r in comp_rows if LABEL_TO_CODE[r[1]] in FIG_GAMES]
+
+fig, axes = plt.subplots(1, 2, figsize=(11.2, 4.8))
+panel_specs = [
+    (axes[0], r"$\Delta$ Mean of action", [(r[2], r[3]) for r in fig_rows]),
+    (axes[1], r"$\Delta$ SD of action", [(100 * r[4], 100 * r[5]) for r in fig_rows]),
+]
+for ax, panel_title, pts in panel_specs:
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    lo = min(xs + ys)
+    hi = max(xs + ys)
+    span = hi - lo if hi > lo else 1.0
+    lo, hi = lo - 0.12 * span, hi + 0.12 * span
+    ax.plot([lo, hi], [lo, hi], color="#777777", linestyle="--", linewidth=1, zorder=1)
+    for r, (px, py) in zip(fig_rows, pts):
+        ax.scatter(
+            px, py,
+            s=60,
+            color=GAME_COLOR[LABEL_TO_CODE[r[1]]],
+            marker=COMPARISON_MARKER[r[0]],
+            edgecolor="black",
+            linewidth=0.5,
+            zorder=3,
+        )
+    ax.set_xlim(lo, hi)
+    ax.set_ylim(lo, hi)
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_title(panel_title)
+    ax.set_xlabel("Predicted (pp of budget share)")
+    ax.grid(alpha=0.25)
+
+axes[0].set_ylabel("Actual (pp of budget share)")
+
+game_handles = [
+    Line2D([], [], marker="o", linestyle="none", markersize=9,
+               markerfacecolor=GAME_COLOR[g], markeredgecolor="black",
+               markeredgewidth=0.5, label=GAME_LABELS[g])
+    for g in FIG_GAMES
+]
+comparison_handles = [
+    Line2D([], [], marker=COMPARISON_MARKER[label], linestyle="none", markersize=9,
+               markerfacecolor="#BBBBBB", markeredgecolor="black",
+               markeredgewidth=0.5, label=label)
+    for label in ["Market vs Control", "Aid vs Bonus"]
+]
+fig.legend(
+    handles=game_handles + comparison_handles,
+    frameon=False, ncol=5, loc="lower center", bbox_to_anchor=(0.5, -0.02),
+)
+fig.tight_layout(rect=[0, 0.06, 1, 1])
+fig.savefig(FIG_DIR / "heterogeneity_predicted_actual.png", dpi=300, bbox_inches="tight")
+plt.close(fig)
+log("saved output/figures/heterogeneity_predicted_actual.png")
 log()
 
 # ---------------------------------------------------------------------
@@ -507,7 +607,7 @@ lines += [
     r"\footnotesize Notes: Structural similarity and retrieval shares are means over the nine LLM "
     r"conversations (Section on Treatments and Similarity); action and Moral-share effects are "
     r"Aid $-$ Bonus differences (Player 1; Moral share among classified responses). The "
-    r"treatment-effect figures of Section 4 use DG-KW, UG, TG\@; the DG-LT story arms enter "
+    r"treatment-effect figures of Section 4 use DG-KW, UG, TG\@; the DG-LT story conditions enter "
     r"this table and the dispersion accounting of Section 5.",
     r"\end{flushleft}", r"\end{table}",
 ]

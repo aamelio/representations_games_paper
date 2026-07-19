@@ -78,9 +78,9 @@ P1_LABELS = {0: "No clear justification", 1: "Moral", 2: "Mutual Benefit / Coope
 P2_LABELS = {0: "No clear justification", 1: "Moral good", 2: "Moral bad", 3: "Mutual Benefit / Cooperation", 4: "Self-interest"}
 
 BATCHES = {
-    "Player 1, story arms (Aid/Bonus)": "player1_aid_bonus_reason_subsample_{}_compiled_with_llm_story_game.xlsx",
+    "Player 1, story conditions (Aid/Bonus)": "player1_aid_bonus_reason_subsample_{}_compiled_with_llm_story_game.xlsx",
     "Player 1, Market/Control": "player1_market_control_reason_subsample_{}_compiled_with_llm_story_game.xlsx",
-    "Player 2, all arms": "player2_reason_subsample_{}_compiled_with_llm_story_game.xlsx",
+    "Player 2, all conditions": "player2_reason_subsample_{}_compiled_with_llm_story_game.xlsx",
 }
 
 emit("=" * 78)
@@ -177,7 +177,7 @@ for batch in BATCHES:
             c2 = fmt(arm_rows[batch][arm][2])
             rows.append(rf"\quad {arm} & {c1} & {c2} \\")
     s1, s2, _ = batch_rows[batch]
-    rows.append(rf"\quad All arms & {fmt(s1)} & {fmt(s2)} \\")
+    rows.append(rf"\quad All conditions & {fmt(s1)} & {fmt(s2)} \\")
     rows.append(r"\addlinespace")
 rows.append(rf"\emph{{Overall}} & \multicolumn{{6}}{{c}}{{$N={n_all:,}$, agreement $={po_all:.2f}$, $\kappa={kap_all:.2f}$}} \\")
 
@@ -195,7 +195,7 @@ table = rf"""\begin{{table}}[!htbp]
 \bottomrule
 \end{{tabular}}
 \begin{{flushleft}}
-\footnotesize Notes: Human coders classified free-text answers to the reasons question using the same classification rules given to the LLM (GPT-4.1). Each batch comprises two disjoint validation subsamples drawn stratified on the LLM-assigned category (for Player 1, 100 responses per game--arm cell across DG-KW, UG, and TG\@; for Player 2, roughly 100 per game--arm cell across UG and TG in all four arms); each subsample was coded by one of two research assistants, blind to the treatment arm and to the game. Agreement is the share of responses assigned to the same category; $\kappa$ is Cohen's kappa over the full category set (four categories for Player 1, five for Player 2), including the residual ``No clear justification''.
+\footnotesize Notes: Human coders classified free-text answers to the reasons question using the same classification rules given to the LLM (GPT-4.1). Each batch comprises two disjoint validation subsamples drawn stratified on the LLM-assigned category (for Player 1, 100 responses per game--condition cell across DG-KW, UG, and TG\@; for Player 2, roughly 100 per game--condition cell across UG and TG in all four conditions); each subsample was coded by one of two research assistants, blind to the condition and to the game. Agreement is the share of responses assigned to the same category; $\kappa$ is Cohen's kappa over the full category set (four categories for Player 1, five for Player 2), including the residual ``No clear justification''.
 \end{{flushleft}}
 \end{{table}}
 """

@@ -33,18 +33,17 @@ _spec.loader.exec_module(cf)
 
 def build_main_text_hypothetical_figure(p1: pd.DataFrame, p2: pd.DataFrame) -> None:
     outcome_effects = cf.compute_outcome_model_effects(p1, p2)
-    hp_levels = {
-        comparison["slug"]: cf.compute_player2_hp_level_summary(p2, comparison)
-        for comparison in cf.COMPARISONS
-    }
 
-    fig, axes = plt.subplots(2, 2, figsize=(12.4, 7.8))
+    # Top row only (treatment effects on hypothetical outcomes); the
+    # treatment-level means of Player 2 hypothetical actions (former bottom row)
+    # were dropped per the coauthor request of 2026-07-19.
+    fig, axes = plt.subplots(1, 2, figsize=(12.4, 3.9))
 
     for col_idx, comparison in enumerate(cf.COMPARISONS):
         slug = comparison["slug"]
         title = comparison["title"]
         cf.plot_outcome_panel(
-            axes[0, col_idx],
+            axes[col_idx],
             outcome_effects[
                 (outcome_effects["player"] == "player2")
                 & (outcome_effects["comparison_slug"] == slug)
@@ -52,15 +51,8 @@ def build_main_text_hypothetical_figure(p1: pd.DataFrame, p2: pd.DataFrame) -> N
             cf.PLAYER_GAMES["player2"],
             f"{title}: Player 2 HP outcome",
         )
-        cf.plot_player2_hp_level_panel(
-            axes[1, col_idx],
-            hp_levels[slug],
-            comparison,
-            f"{title}: Player 2 hypothetical action",
-        )
 
-    axes[0, 0].set_ylabel("Treatment effect on HP outcome (pp)")
-    axes[1, 0].set_ylabel("Average hypothetical outcome (%)")
+    axes[0].set_ylabel("Treatment effect on HP outcome (pp)")
 
     fig.tight_layout()
     cf.save_figure(fig, "player2_hypothetical_treatment_effects.png")

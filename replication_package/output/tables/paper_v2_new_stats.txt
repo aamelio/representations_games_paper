@@ -58,6 +58,7 @@ saved output/figures/market_vs_control_distributions.png
   TG    Bonus    N= 589  SD=0.289  between-category share=0.296
   TG    Aid      N= 588  SD=0.295  between-category share=0.314
 saved output/tables/heterogeneity_decomposition.tex
+saved output/tables/heterogeneity_decomposition_main.tex
 --- predicted vs actual dispersion (mixture reweighting, pooled conditionals) ---
   Aid vs Bonus       DG-KW dMean pred= -3.88pp act= -5.93pp | dSD pred=+0.0217 act=+0.0258
   Aid vs Bonus       DG-LT dMean pred= -3.97pp act= -5.02pp | dSD pred=+0.0228 act=+0.0275
@@ -68,6 +69,7 @@ saved output/tables/heterogeneity_decomposition.tex
   Market vs Control  UG    dMean pred= -7.35pp act=-21.00pp | dSD pred=+0.0428 act=+0.1490
   Market vs Control  TG    dMean pred= +4.25pp act=+14.97pp | dSD pred=+0.0194 act=+0.0034
 saved output/tables/heterogeneity_predicted_actual.tex
+saved output/figures/heterogeneity_predicted_actual.png
 
 === E4: KW-LT framing gap vs treatment effects (DG, share of $12 budget) ===
   [validate] KW-LT gap (pp): got 6.367, v1 says 6.400  OK 

@@ -822,6 +822,65 @@ def make_instability_figure(
     plt.close(fig)
 
 
+def make_instability_panel_figure(
+    panels: list[tuple[pd.DataFrame, str]],
+    output_path: Path,
+) -> None:
+    # 2x2 combined version of make_instability_figure (whose single-panel calls are
+    # kept, commented, in main); drawn ~13.6in wide and included at \textwidth, so
+    # each panel shows at ~3.2in against the singles' ~4.8in --- the font boost
+    # restores the same apparent text size.
+    boost = 1.45
+    with plt.rc_context(
+        {
+            "axes.titlesize": 12 * FONT_SCALE * boost,
+            "axes.labelsize": 10 * FONT_SCALE * boost,
+            "xtick.labelsize": 9 * FONT_SCALE * boost,
+            "ytick.labelsize": 9 * FONT_SCALE * boost,
+            "legend.fontsize": 9 * FONT_SCALE * boost,
+        }
+    ):
+        fig, axes = plt.subplots(2, 2, figsize=(13.6, 10.6))
+        for ax, (rows, panel_title) in zip(axes.flat, panels):
+            subset = rows.copy()
+            lo, hi = compute_limits(subset)
+            ax.plot([lo, hi], [lo, hi], color="#777777", linestyle="--", linewidth=1)
+            for comparison in COMPARISONS:
+                comp_rows = subset[subset["comparison_slug"] == comparison["slug"]]
+                ax.scatter(
+                    comp_rows["actual"],
+                    comp_rows["predicted"],
+                    s=52,
+                    color=COMPARISON_COLORS[comparison["slug"]],
+                    edgecolor="black",
+                    linewidth=0.5,
+                    zorder=3,
+                    label=comparison["title"],
+                )
+                for _, row in comp_rows.iterrows():
+                    ax.annotate(
+                        row["point_label"],
+                        (row["actual"], row["predicted"]),
+                        xytext=(4, 4),
+                        textcoords="offset points",
+                        fontsize=9 * FONT_SCALE * boost,
+                        color=GAME_COLORS[row["game_code"]],
+                    )
+            ax.set_xlim(lo, hi)
+            ax.set_ylim(lo, hi)
+            ax.set_xlabel("Actual treatment effect")
+            ax.set_ylabel("Predicted treatment effect")
+            ax.set_title(panel_title)
+            ax.grid(alpha=0.25)
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+        handles, labels = axes.flat[0].get_legend_handles_labels()
+        fig.legend(handles, labels, frameon=False, ncol=2, loc="lower center", bbox_to_anchor=(0.5, -0.01))
+        fig.tight_layout(rect=(0, 0.03, 1, 1))
+        fig.savefig(output_path, bbox_inches="tight")
+        plt.close(fig)
+
+
 def write_instability_regression_table(rows: pd.DataFrame, spec: dict, output_path: Path) -> None:
     subsets = {
         "All": rows.copy(),
@@ -1307,33 +1366,44 @@ def main() -> None:
         p1_belief_points = pd.concat(instability_points[spec["slug"]]["p1_belief"], ignore_index=True)
         p2_actual_points = pd.concat(instability_points[spec["slug"]]["p2_actual"], ignore_index=True)
         p2_hyp_points = pd.concat(instability_points[spec["slug"]]["p2_hyp"], ignore_index=True)
-        make_instability_figure(
-            p1_action_points,
-            "Player 1",
-            spec,
-            FIG_DIR / f"{spec['slug']}_instability_p1.png",
-            title_override=f"Player 1 action, {spec['title']}",
-        )
-        make_instability_figure(
-            p1_belief_points,
-            "Player 1",
-            spec,
-            FIG_DIR / f"{spec['slug']}_instability_p1_beliefs.png",
-            title_override=f"Player 1 beliefs, {spec['title']}",
-        )
-        make_instability_figure(
-            p2_actual_points,
-            "Player 2",
-            spec,
-            FIG_DIR / f"{spec['slug']}_instability_p2.png",
-            title_override=f"Player 2, {spec['title']} + Fitted Share Sent P1",
-        )
-        make_instability_figure(
-            p2_hyp_points,
-            "Player 2",
-            spec,
-            FIG_DIR / f"{spec['slug']}_instability_p2_hyp.png",
-            title_override=f"Player 2 hypothetical action, {spec['title']} + Fitted Share Sent P1",
+        # 2026-07-19 (SN): the four single-panel exhibits are superseded in the paper
+        # by the combined 2x2 panel below; calls kept, commented, for re-enabling.
+        # make_instability_figure(
+        #     p1_action_points,
+        #     "Player 1",
+        #     spec,
+        #     FIG_DIR / f"{spec['slug']}_instability_p1.png",
+        #     title_override=f"Player 1 action, {spec['title']}",
+        # )
+        # make_instability_figure(
+        #     p1_belief_points,
+        #     "Player 1",
+        #     spec,
+        #     FIG_DIR / f"{spec['slug']}_instability_p1_beliefs.png",
+        #     title_override=f"Player 1 beliefs, {spec['title']}",
+        # )
+        # make_instability_figure(
+        #     p2_actual_points,
+        #     "Player 2",
+        #     spec,
+        #     FIG_DIR / f"{spec['slug']}_instability_p2.png",
+        #     title_override=f"Player 2, {spec['title']} + Fitted Share Sent P1",
+        # )
+        # make_instability_figure(
+        #     p2_hyp_points,
+        #     "Player 2",
+        #     spec,
+        #     FIG_DIR / f"{spec['slug']}_instability_p2_hyp.png",
+        #     title_override=f"Player 2 hypothetical action, {spec['title']} + Fitted Share Sent P1",
+        # )
+        make_instability_panel_figure(
+            [
+                (p1_action_points, "Player 1 actions"),
+                (p1_belief_points, "Player 1 chosen-action beliefs"),
+                (p2_actual_points, "Player 2 outcomes"),
+                (p2_hyp_points, "Player 2 hypothetical actions"),
+            ],
+            FIG_DIR / f"{spec['slug']}_instability_2x2.png",
         )
         write_instability_regression_table(
             pd.concat([p1_action_points, p1_belief_points, p2_actual_points, p2_hyp_points], ignore_index=True),

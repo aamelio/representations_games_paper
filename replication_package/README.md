@@ -47,6 +47,14 @@ python3 04_paper_v1_extra_outputs.py                   # intro figure, surplus/w
 python3 05_paper_v2_new_outputs.py                     # E1-E5 (NOT yet in the paper; pending AA re-run)
 python3 06_validation_and_within_checks.py             # LLM-human agreement table + within checks
 python3 07_player2_exhibit_split.py                    # P2 figure split (imports 01)
+python3 08_calibration.py                              # NG round: per-category (sigma/mu, rho/mu),
+                                                       #   (a,b), s; overid tests; Cov(sigma/mu,s)
+python3 09_p2_foundation.py                            # NG round: P2 categories vs action faced;
+                                                       #   schedules by category; believed-vs-actual
+                                                       #   slopes; FE by offer bin
+python3 10_interaction_accounting.py                   # NG round: category x belief interactions
+python3 11_oaxaca.py                                   # NG round: preregistered Oaxaca, cat x belief cells
+python3 12_ng_page_items.py                            # NG round: SP x action panel, quote candidates
 python3 verification/proof_audit_checks.py             # + the other four verification scripts
 ```
 

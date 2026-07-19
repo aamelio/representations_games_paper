@@ -619,6 +619,7 @@ def plot_representation_panel(
     category_labels: dict[str, str],
     games: list[str],
     title: str,
+    y_limit: float | None = None,
 ) -> None:
     x = np.arange(len(categories))
     width = 0.74 / len(games)
@@ -629,7 +630,8 @@ def plot_representation_panel(
         panel_values.extend(subset["ci_low_pp"].tolist())
         panel_values.extend(subset["ci_high_pp"].tolist())
 
-    y_limit = symmetric_limit(panel_values, minimum=10.0, pad=1.12)
+    if y_limit is None:
+        y_limit = symmetric_limit(panel_values, minimum=10.0, pad=1.12)
 
     for idx, game in enumerate(games):
         subset = effects[effects["game"] == game].set_index("category").reindex(categories)
@@ -814,17 +816,21 @@ def plot_outcome_panel(
     frame: pd.DataFrame,
     games: list[str],
     title: str,
+    y_limit: float | None = None,
 ) -> None:
     subset = frame.set_index("game").reindex(games)
     x = np.arange(len(games))
     centers = subset["estimate_pp"].to_numpy()
     lower = centers - subset["ci_low_pp"].to_numpy()
     upper = subset["ci_high_pp"].to_numpy() - centers
-    limit = symmetric_limit(
-        subset["ci_low_pp"].tolist() + subset["ci_high_pp"].tolist(),
-        minimum=6.0,
-        pad=1.3,
-    )
+    if y_limit is None:
+        limit = symmetric_limit(
+            subset["ci_low_pp"].tolist() + subset["ci_high_pp"].tolist(),
+            minimum=6.0,
+            pad=1.3,
+        )
+    else:
+        limit = y_limit
     symbol_y = limit * 0.82
 
     ax.bar(
@@ -874,17 +880,21 @@ def plot_simple_treatment_effect_panel(
     frame: pd.DataFrame,
     games: list[str],
     title: str,
+    y_limit: float | None = None,
 ) -> None:
     subset = frame.set_index("game").reindex(games)
     x = np.arange(len(games))
     centers = subset["estimate_pp"].to_numpy()
     lower = centers - subset["ci_low_pp"].to_numpy()
     upper = subset["ci_high_pp"].to_numpy() - centers
-    limit = symmetric_limit(
-        subset["ci_low_pp"].tolist() + subset["ci_high_pp"].tolist(),
-        minimum=6.0,
-        pad=1.3,
-    )
+    if y_limit is None:
+        limit = symmetric_limit(
+            subset["ci_low_pp"].tolist() + subset["ci_high_pp"].tolist(),
+            minimum=6.0,
+            pad=1.3,
+        )
+    else:
+        limit = y_limit
 
     ax.bar(
         x,
@@ -1005,17 +1015,61 @@ def build_player1_main_treatment_figure(p1: pd.DataFrame, p2: pd.DataFrame) -> N
     save_figure(fig, "paper_section4_player1.png")
 
 
+def compute_player1_comparison_joint_ylimits(
+    p1: pd.DataFrame,
+    p2: pd.DataFrame,
+) -> dict[str, float]:
+    """Per-panel y-limits shared by the two Player 1 comparison figures
+    (paper_section4_player1_aid_vs_bonus / _market_vs_control). For each of the
+    three panel types the limit is the autoscale rule used by the corresponding
+    plot function (same minimum/pad), but applied to the union of the CI ranges
+    across BOTH comparisons, so the two figures share identical per-panel scales
+    and the larger Market effects are not visually understated."""
+    p1_effects = compute_representation_effects(p1, P1_CATEGORIES, PLAYER_GAMES["player1"])
+    outcome_effects = compute_outcome_model_effects(p1, p2)
+    hp_effects = compute_player1_hp_belief_treatment_effects(p1)
+    slugs = [comparison["slug"] for comparison in COMPARISONS]
+
+    rep_vals: list[float] = []
+    outcome_vals: list[float] = []
+    hp_vals: list[float] = []
+    for slug in slugs:
+        rep = p1_effects[p1_effects["comparison_slug"] == slug]
+        rep_vals.extend(rep["ci_low_pp"].tolist())
+        rep_vals.extend(rep["ci_high_pp"].tolist())
+
+        out = outcome_effects[
+            (outcome_effects["player"] == "player1")
+            & (outcome_effects["comparison_slug"] == slug)
+        ]
+        outcome_vals.extend(out["ci_low_pp"].tolist())
+        outcome_vals.extend(out["ci_high_pp"].tolist())
+
+        hp = hp_effects[hp_effects["comparison_slug"] == slug]
+        hp_vals.extend(hp["ci_low_pp"].tolist())
+        hp_vals.extend(hp["ci_high_pp"].tolist())
+
+    return {
+        "representations": symmetric_limit(rep_vals, minimum=10.0, pad=1.12),
+        "outcome": symmetric_limit(outcome_vals, minimum=6.0, pad=1.3),
+        "hp": symmetric_limit(hp_vals, minimum=6.0, pad=1.3),
+    }
+
+
 def build_player1_comparison_treatment_figure(
     p1: pd.DataFrame,
     p2: pd.DataFrame,
     comparison: dict,
     output_name: str,
+    y_limits: dict[str, float] | None = None,
 ) -> None:
     p1_effects = compute_representation_effects(p1, P1_CATEGORIES, PLAYER_GAMES["player1"])
     outcome_effects = compute_outcome_model_effects(p1, p2)
     hp_effects = compute_player1_hp_belief_treatment_effects(p1)
     slug = comparison["slug"]
     title = comparison["title"]
+
+    y_limits = y_limits or {}
 
     fig, axes = plt.subplots(3, 1, figsize=(7.8, 11.0))
 
@@ -1026,6 +1080,7 @@ def build_player1_comparison_treatment_figure(
         P1_CATEGORY_LABELS,
         PLAYER_GAMES["player1"],
         f"{title}: Representations",
+        y_limit=y_limits.get("representations"),
     )
     plot_outcome_panel(
         axes[1],
@@ -1035,12 +1090,14 @@ def build_player1_comparison_treatment_figure(
         ].copy(),
         PLAYER_GAMES["player1"],
         f"{title}: Outcome",
+        y_limit=y_limits.get("outcome"),
     )
     plot_simple_treatment_effect_panel(
         axes[2],
         hp_effects[hp_effects["comparison_slug"] == slug].copy(),
         ["ug", "tg"],
         f"{title}: HP beliefs",
+        y_limit=y_limits.get("hp"),
     )
 
     axes[0].set_ylabel("Difference in category share (pp)")
@@ -1338,7 +1395,7 @@ def write_figure_stats(
             sp_rows.append(
                 {
                     "game": game,
-                    "arm": arm_label,
+                    "condition": arm_label,
                     "high_sp_share_pct": len(high) / len(valid) * 100 if len(valid) else np.nan,
                     "no_mention_share_pct": (valid["sp_num"] == 0).mean() * 100 if len(valid) else np.nan,
                     "action_high_sp_pct": high["share_sent"].mean() * 100,
@@ -1400,17 +1457,24 @@ def main() -> None:
     build_representation_figure(p1, p2)
     build_outcome_model_figure(p1, p2)
     build_player1_main_treatment_figure(p1, p2)
+    player1_comparison_ylimits = compute_player1_comparison_joint_ylimits(p1, p2)
+    print(
+        "Shared per-panel y-limits for paper_section4_player1_* figures "
+        f"(symmetric ±): {player1_comparison_ylimits}"
+    )
     build_player1_comparison_treatment_figure(
         p1,
         p2,
         COMPARISONS[0],
         "paper_section4_player1_aid_vs_bonus.png",
+        y_limits=player1_comparison_ylimits,
     )
     build_player1_comparison_treatment_figure(
         p1,
         p2,
         COMPARISONS[1],
         "paper_section4_player1_market_vs_control.png",
+        y_limits=player1_comparison_ylimits,
     )
     build_player2_appendix_treatment_figure(p1, p2)
     build_mixed_treatment_figure(

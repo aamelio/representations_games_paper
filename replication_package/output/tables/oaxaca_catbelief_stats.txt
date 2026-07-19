@@ -1,0 +1,24 @@
+ Market vs Control  DG-KW (category only (no belief elicitation in the DG)): observed diff -0.101, N 728
+       symmetrized: representation -0.039 (39%), behavior -0.061 (61%), residual +0.000
+       control-ref: representation -0.060 (59%), behavior -0.041 (41%), residual +0.000
+        pooled-ref: representation -0.048 (47%), behavior -0.061 (61%), residual +0.008
+ Market vs Control     UG (category x belief tercile): observed diff -0.220, N 1027
+       symmetrized: representation -0.036 (16%), behavior -0.184 (84%), residual -0.000
+       control-ref: representation -0.003 (1%), behavior -0.217 (99%), residual -0.000
+        pooled-ref: representation -0.082 (37%), behavior -0.184 (84%), residual +0.046
+ Market vs Control     TG (category x belief tercile): observed diff +0.133, N 970
+       symmetrized: representation +0.078 (59%), behavior +0.054 (41%), residual -0.000
+       control-ref: representation +0.075 (57%), behavior +0.058 (43%), residual -0.000
+        pooled-ref: representation +0.088 (67%), behavior +0.054 (41%), residual -0.010
+      Aid vs Bonus  DG-KW (category only (no belief elicitation in the DG)): observed diff -0.059, N 790
+       symmetrized: representation -0.039 (65%), behavior -0.021 (35%), residual +0.000
+       control-ref: representation -0.039 (67%), behavior -0.020 (33%), residual +0.000
+        pooled-ref: representation -0.037 (63%), behavior -0.021 (35%), residual -0.001
+      Aid vs Bonus     UG (category x belief tercile): observed diff -0.024, N 1120
+       symmetrized: representation -0.012 (52%), behavior -0.011 (48%), residual +0.000
+       control-ref: representation -0.009 (37%), behavior -0.015 (63%), residual +0.000
+        pooled-ref: representation -0.018 (76%), behavior -0.011 (48%), residual +0.006
+      Aid vs Bonus     TG (category x belief tercile): observed diff +0.008, N 937
+       symmetrized: representation +0.011 (144%), behavior -0.003 (-44%), residual +0.000
+       control-ref: representation +0.011 (144%), behavior -0.003 (-44%), residual +0.000
+        pooled-ref: representation +0.005 (63%), behavior -0.003 (-44%), residual +0.006

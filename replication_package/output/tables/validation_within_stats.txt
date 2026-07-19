@@ -1,13 +1,13 @@
 ==============================================================================
 PART A: LLM-HUMAN CLASSIFICATION VALIDATION
 ==============================================================================
-[note] Player 1, story arms (Aid/Bonus): 1 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
+[note] Player 1, story conditions (Aid/Bonus): 1 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
 [note] Player 1, Market/Control: 12 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
-[note] Player 2, all arms: 7 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
+[note] Player 2, all conditions: 7 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
 [OK] numeric label maps consistent; no response text was coded in both subsamples
      (identical LLM-label marginals across disjoint subsamples => stratified draw on the LLM category)
 
---- Player 1, story arms (Aid/Bonus) ---
+--- Player 1, story conditions (Aid/Bonus) ---
 subsample 1: N=600  agreement=0.822  kappa=0.662
    arm Bonus    N= 300  agreement=0.837  kappa=0.675
    arm Aid      N= 300  agreement=0.807  kappa=0.649
@@ -45,7 +45,7 @@ batch pooled: N=1198  agreement=0.788  kappa=0.694
    top confusion: human='Mutual Benefit / Cooperation' vs LLM='Self-interest': 50 (4.2%)
    top confusion: human='Mutual Benefit / Cooperation' vs LLM='Moral': 46 (3.8%)
 
---- Player 2, all arms ---
+--- Player 2, all conditions ---
 subsample 1: N=793  agreement=0.691  kappa=0.554
    arm Control  N= 200  agreement=0.705  kappa=0.544
    arm Market   N= 199  agreement=0.663  kappa=0.561
