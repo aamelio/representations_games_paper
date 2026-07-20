@@ -15,6 +15,12 @@ replication_package/
 │   ├── within_switching_results.xlsx      AA's within-subject summary (input to 04)
 │   ├── within_regression_results.{xlsx,txt}  AA's raw within regression output
 │   │                                      (provenance for the within tables)
+│   ├── classification_no_clear_justification.xlsx     RA 1 forced labels and
+│   ├── control_no_clear_justification_reasons.xlsx    RA 2 forced labels for the
+│   │                                      309 unclassified P1 Control/Market answers
+│   ├── player1_control_market_no_clear_reclassified.xlsx  the 309 unclassified answers
+│   │                                      + the earlier forced LLM pass (all three from
+│   │                                      AA's 2026-07-19 email package; inputs to 18)
 │   └── missingdata/                       AA's delivery 2026-07-10: 6 human-coder
 │                                          validation workbooks + within microdata
 │                                          (within_all_{long,pairs}_categorized.xlsx)
@@ -25,6 +31,10 @@ replication_package/
 └── output/
     ├── figures/                           all paper figures (PNG);
     │   └── fitted_fullpooled/             02's model-fit figures
+    ├── unclassified/                      18/19's outputs: reference examples, forced
+    │                                      classifications (two models), LOO validation,
+    │                                      foldin_summary.txt (every number in the
+    │                                      sec:market_control robustness footnote)
     └── tables/                            all paper tables (.tex) + run logs (*.txt);
                                            control_treatment_figure_stats.txt and
                                            forecast_error_figure_stats.txt (2026-07-16)
@@ -55,6 +65,19 @@ python3 09_p2_foundation.py                            # NG round: P2 categories
 python3 10_interaction_accounting.py                   # NG round: category x belief interactions
 python3 11_oaxaca.py                                   # NG round: preregistered Oaxaca, cat x belief cells
 python3 12_ng_page_items.py                            # NG round: SP x action panel, quote candidates
+python3 13_receiver_models.py                          # NG round: receiver protest/equalization fits
+                                                       #   (p2_schedules; partly held out of the paper)
+python3 14_hp_classification.py                        # NG round: hp memory texts -> new scheme
+                                                       #   (Anthropic batch API; --submit/--collect)
+python3 15_hp_person_level.py                          # NG round: hp vs reasons person-level table
+python3 16_moral_slope_check.py                        # NG round: TG Moral belief-slope diagnostic (held)
+python3 17_tg_anchor_dryrun.py                         # NG round: equal-payoff anchor dry run
+python3 18_unclassified_classification.py              # forced classification of the 309 unclassified
+                                                       #   P1 answers, AA's example-based method
+                                                       #   (--build/--classify/--loo; API; headline
+                                                       #   model claude-opus-4-8)
+python3 19_unclassified_foldin.py                      # fold-in robustness; generates every number in
+                                                       #   the sec:market_control unclassified footnote
 python3 verification/proof_audit_checks.py             # + the other four verification scripts
 ```
 

@@ -8,10 +8,14 @@ norm + beliefs about the counterpart); context manipulations (market frame, Aid/
 shift representations, actions, beliefs, and forecast errors coherently.
 
 ## Canonical Files
-- `main.tex` — the paper (v2 skeleton along NG's outline). **Compile this.**
-- `main_v2.0_pre_ng_revision.tex` — frozen backup of main.tex before the 2026-07-19 NG-comments
-  revision. Never edit.
-- `paper.tex` / `paper_v1.tex` — v1.1 record per main.tex header. Never edit.
+- `main.tex` — the paper, **version 1.1** (SN, 2026-07-20). **Compile this.**
+- `main_v1.tex` — **version 1.0**: the copy SENT TO NG, the one his 2026-07-19 comments are on
+  (the tracker calls it v0.1). This IS the frozen pre-NG-revision backup. Pre-equal-payoff-anchor
+  (still equal-split at l.142), so it is also the witness to the old model spec. Never edit.
+- NOTE: the `% paper_v2.tex --- Version 2.0 skeleton ... paper_v1.tex remains the v1.1 record`
+  header on line 1–2 is STALE and identical in both files — do not read version numbers off it.
+  `paper.tex`, `paper_v1.tex`, and `main_v2.0_pre_ng_revision.tex` do not exist in this project.
+  There is NO frozen pre-NG-revision backup on disk; that state lives only in Dropbox history.
 - `model.tex` — companion model note (NG's Model 2.0), kept in sync with Section 2.
 - `ng_comments_tracker.md` — authoritative comment-by-comment record of the NG revision round.
 
@@ -38,14 +42,25 @@ edited .tex (incl. `\input`-ed generated tables); suppress false positives with 
   DISPARITY MODEL CUT from the paper (single-model architecture; blocks commented, grep
   "CUT 2026-07-19") and folded verbatim into model.tex Part II. main.tex 109 pp. + model.tex
   47 pp. (Part I Model 2.0 + Part II disparity note), both compile clean, 0 undefined refs.
-- **Current task:** SN polishes & sends `email_ng_response.md` (in Dropbox/Downloads with the
-  tracker; updated: 109 pp., polish paragraph, disparity-cut veto line, three decision points),
-  revokes the round-2 Anthropic API key, deletes the redundant `Downloads/Gennaioli-2` and
-  `Downloads/representations_paper_archive`.
+  **2026-07-20 (second session):** NG email rewritten section by section with SN (numbering
+  corrected to NG's own five general comments; every claim re-verified against outputs) and
+  §3.2 gained the category-level calibration clause; main.tex recompiled clean, 109 pp.,
+  0 undefined. **2026-07-20 (third session):** coauthor email FINALIZED as
+  `Dropbox/Downloads/email_ng_response_final.txt` — SN's condensed version verified
+  claim-by-claim (all numbers correct), paper pointers inserted from main.aux, SN hand-edited
+  after delivery; supersedes `email_ng_response.md`.
+- **Current task:** SN sends `Dropbox/Downloads/email_ng_response_final.txt` (both 07-20 loose
+  ends resolved: Oaxaca sits in Comment 4; quotes table linked via the section-4 opener "The
+  memory-consistency check you asked for"; table/figure numbers are from the current compile —
+  re-check them only if main.tex recompiles before sending); revokes the round-2 Anthropic API
+  key (last used 2026-07-20 for the unclassified runs); deletes the redundant
+  `Downloads/Gennaioli-2`, `Downloads/representations_paper_archive`, and the ported
+  project-root `player1_examples_method_email_package/` folder. AA reply on the unclassified
+  exercise SENT 2026-07-20.
 - **Next steps:** coauthor reactions (anchor framing, equalization placement, DG-LT,
-  disparity-cut veto); 3-model similarity grid (needs GPT/Gemini keys); human survey Module B
-  via /preregistration (TG similarity nulls = sharpest target); M1-LOO stays held out
-  (restorable, grep "HELD OUT").
+  disparity-cut veto, unclassified footnote); 3-model similarity grid (needs GPT/Gemini keys);
+  human survey Module B via /preregistration (TG similarity nulls = sharpest target); M1-LOO
+  stays held out (restorable, grep "HELD OUT").
 - **Blockers:** none. Only SN actions pending: send the NG email, revoke the API key, delete
   the two Downloads folders.
 
@@ -160,3 +175,88 @@ edited .tex (incl. `\input`-ed generated tables); suppress false positives with 
   Dropbox/Downloads deliberately (outside the Overleaf sync); the GPT-4.1/Opus-4.8 classifier
   split judged fine as disclosed and validated in app:hp — optional GPT-4.1 re-classification
   of the hp texts only if a referee insists.
+- 2026-07-20: AA's example-based forced classification of the 309 unclassified P1 Control/Market
+  answers EXECUTED and inserted as a robustness footnote in §4.2 (sec:market_control) + forward
+  pointer in the §3.2 residual footnote; main.tex compiles clean (109 pp., 0 undefined).
+  Headline classifier Opus 4.8 per protocol (AA's Sonnet 4.6 = cross-check; LOO on the 95
+  reference examples 84%/83%, κ≈.71 — but 92–97% where all three forced raters agreed vs 73–79%
+  where the LLM matched one RA). Fold-in moves every Market−Control category effect ≤5.0pp
+  (max DG-KW Self-interest 4.97), no sign changes; robust to model swap and to the earlier
+  forced pass. Account: unclassified Market answers are shorter (15 vs 22 words), 92% mention
+  no counterpart (vs 46% classified), two-thirds Self-interest when forced, transfers slightly
+  below classified same-condition participants — the far end of the counterpart-abstraction
+  shift, coherent with the hp residual rising 11.8→43.4 under Market. Rescued labels are
+  AGGREGATE-GRADE ONLY (agreement on the 214 hard cases: .81 Opus–Sonnet, .70/.62 vs earlier
+  pass) — never for person-level analyses. Scripts 18/19 + AA's three input workbooks now in
+  the replication package (outputs in output/unclassified/, every footnote number in
+  foldin_summary.txt); AA's original folder droppable (email attachment = provenance copy).
+  NOTE: an early session-folder version of the descriptives had an index-alignment bug
+  ("equal length" was wrong — residual answers are ~7 words shorter); scripts 18/19 are the
+  corrected, authoritative versions. Reply SENT 2026-07-20; SN discards the draft file after
+  sending (its earlier mid-session "disappearance" was SN's own deletion, not a sync fault).
+- 2026-07-20: NG email amended with a §4 paragraph on the unclassified robustness exercise
+  (credited as AA's initiative: fold-in ≤5pp / no sign changes, LOO 84% κ=.72, 92% no-counterpart
+  account) + scripts 18/19 and foldin_summary.txt added to the attachments footer.
+- 2026-07-20: `main (Salvatore Nunnari's conflicted copy).out` (Dropbox sync artifact of the
+  regenerated hyperref file) deleted; sole conflicted copy in the project.
+- 2026-07-20 (second session): NG email section 2 RENUMBERED to NG's own general comments
+  (tracker order: 1 similarity, 2 calibration, 3 P2 foundation, 4 weights×beliefs, 5 motivation
+  + references). The draft had labelled model-section discipline "C1" — that is page-by-page P2
+  (p.11), not a general comment — while Comment 1, the similarity round, sat buried in a
+  half-sentence under "Also inserted". Similarity promoted to Comment 1 as the round's main
+  addition; model-section discipline demoted to the page-by-page highlights; the preregistered
+  Oaxaca (P17) folded into Comment 4, whose own result is a null. All 17 page-by-page items
+  verified ☑ in the tracker, so "I tackled all your other comments" is supportable.
+- 2026-07-20 (second session): main.tex §3.2 calibration paragraph now states the identification
+  assumption explicitly — moments come from different participants (each plays a single game),
+  so the calibration imposes that a category carry the same attention profile wherever retrieved.
+  Rationale: the chain is recursive (DG transfer → σ/μ, since ρ is idle there; + TG send+belief
+  → ρ/μ; + UG FOC + reference belief → (a,b)), so category-level pooling is FORCED by
+  identification, not chosen for cross-game prediction. Compiles clean, 109 pp., 0 undefined.
+- 2026-07-20 (second session): CANONICAL FILES CORRECTED (SN): `main.tex` = v1.1, `main_v1.tex`
+  = v1.0. The `% paper_v2.tex --- Version 2.0 skeleton ... paper_v1.tex remains the v1.1 record`
+  header on line 1–2 is STALE and IDENTICAL in both files — never read version numbers off it.
+  `paper.tex`, `paper_v1.tex`, `main_v2.0_pre_ng_revision.tex` do not exist here. The frozen
+  pre-NG-revision backup DOES exist — it is `main_v1.tex`, the copy sent to NG and the one his
+  comments are on (SN, 2026-07-20); no new freeze needed. Stale headers inside the two .tex
+  files left untouched pending SN.
+- 2026-07-20 (second session): verified for the email — Market share of TG senders with believed
+  return ≥ 1/2 is 52.0% (Control 30.5%); script 17 emits only the Control figure, so the Market
+  number was recomputed from `player1_all_categorized.xlsx` (all TG senders with a belief;
+  classified-only gives 52.4%). Calibration cross-checks: Moral predicted/observed belief slope
+  0.113/0.306, MBC 0.000/0.264; similarity Market−Control Moral −34.2/−29.5/−25.0 (KW/LT/UG),
+  TG +0.6; H5 slope .0122 (se .0025), R²=.59, N=18.
+- 2026-07-20 (second session): five claim corrections applied to the email drafts, do not let
+  them regress — (a) the old anchor's full-send corner was reachable by ANY low-μ sender
+  (material or cooperative), not only "optimistic selfish" ones; what it could never deliver is
+  a norm-dominated sender at the maximum; (b) the two elicited belief points violate a LINEAR
+  probability schedule (p(1)>1), not every schedule — a curved one could fit both; (c) the
+  similarity exercise correlates with reasons-based CATEGORY SHARES, not behaviour/transfers;
+  (d) in the overidentifying test the held-out object is the chosen-offer BELIEF — the chosen
+  offer itself is used, via the optimality condition; (e) the anchor censors at s ≥ 1/2 ("at
+  least half"), not "more than half" — at exactly 1/2 the anchor equals the full send, and the
+  30.5%/52.0% shares were computed with >=. Also: the coauthor is **Andrea** Amelio (a draft
+  had "Alessandro", fabricated from the initials "AA").
+- 2026-07-20 (second session): "excessively optimistic" must always carry its benchmark — the
+  11–23pp gap is optimism relative to the proposer's OWN coherent schedule at her chosen action,
+  not relative to reality; against actual behaviour beliefs UNDERSHOOT acceptance (§4.3), so the
+  unqualified phrasing reads as contradicting the forecast-error section.
+- 2026-07-20 (third session): coauthor email FINALIZED as
+  `Dropbox/Downloads/email_ng_response_final.txt` (supersedes `email_ng_response.md`): SN's
+  condensed 4-section version (Italian opener + English) verified claim-by-claim against
+  tracker/main.tex/outputs — every number correct, incl. newly pinned ones (old-anchor SI ratio
+  0.38 from `tg_anchor_dryrun_stats.txt`; UG decomposition 60% composition vs TG 14%; residual
+  shares 2.4%→13.0% from `foldin_summary.txt`) — then paper pointers inserted from main.aux
+  (Tables 1/2/4/6/13/14/16/22/38; Figures 5–9, 11, 12, 17; Appendices B/C/D/F/H; NG's "Fig 10"
+  = v1.1 Figure 11 fig:player2_hypothetical); word-diff confirmed pointer-only changes; SN
+  hand-edited after delivery. Pointers are current-compile — re-verify if main.tex recompiles.
+- 2026-07-20 (third session): SN's email calls — the .md draft's decision-points block,
+  disparity veto line, and attachments footer NOT carried over (changes presented as done;
+  decision points move to the coauthor call); LLM raters disclosed in Comment 1 with the
+  receiver-type vignettes added (8×3 sender + 2 per type = 32); P6 halves linked (section-4
+  opener "The memory-consistency check you asked for"; objects described as pre-decision memory
+  texts); interaction ratios stated as "1-2 points" (UG .43→.44, TG .62→.64).
+- 2026-07-20 (third session): full-send bullet clarified — belief ≥ 1/2 makes the full send the
+  unique payoff-equalizing action, so the norm itself points to the corner and the belief
+  threshold ties the 30.5%→52.0% belief shift to the 16%→27% corner mass; replacement text
+  supplied, SN applied it by hand.
