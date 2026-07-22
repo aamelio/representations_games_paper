@@ -141,16 +141,47 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-fig, ax = plt.subplots(figsize=(6, 5))
+# 2026-07-22 (SN): color = category, marker = comparison, text label = game.
+# The Aid-Bonus points stack at three x values by construction (story texts are
+# game-invariant, so each category has a single story similarity shift).
+CAT_COLOR = {"Moral": "#0072B2", "Self-interest": "#D55E00",
+             "Mutual Benefit / Cooperation": "#009E73"}
+CAT_LEGEND = {"Moral": "Moral", "Self-interest": "Self-interest",
+              "Mutual Benefit / Cooperation": "Mutual Benefit/Coop."}
+GAME_TAG = {"dgkw": "KW", "ug": "UG", "tg": "TG"}
+LABEL_XY = {  # annotation offsets (points) tuned against overlaps; default (5, 2)
+    ("Aid-Bonus", "dgkw", "Moral"): (5, -9),
+    ("Aid-Bonus", "tg", "Self-interest"): (-21, -4),
+    ("Aid-Bonus", "dgkw", "Self-interest"): (5, 4),
+    ("Aid-Bonus", "ug", "Self-interest"): (5, -10),
+    ("Aid-Bonus", "tg", "Mutual Benefit / Cooperation"): (5, 7),
+    ("Aid-Bonus", "dgkw", "Mutual Benefit / Cooperation"): (5, -2),
+    ("Aid-Bonus", "ug", "Mutual Benefit / Cooperation"): (5, -11),
+}
+
+fig, ax = plt.subplots(figsize=(6.4, 5.2))
 for comp, mk in [("Market-Control", "o"), ("Aid-Bonus", "s")]:
     d = h5.query("comparison == @comp")
-    ax.scatter(d["ds"], d["dq"], marker=mk, label=comp)
+    ax.scatter(d["ds"], d["dq"], marker=mk, s=46,
+               c=[CAT_COLOR[c] for c in d["category"]],
+               edgecolor="black", linewidth=0.5, zorder=3)
+    for r in d.itertuples():
+        dx, dy = LABEL_XY.get((comp, r.game, r.category), (5, 2))
+        ax.annotate(GAME_TAG[r.game], (r.ds, r.dq), xytext=(dx, dy),
+                    textcoords="offset points", fontsize=7.5, color="#444444")
 xs = np.linspace(h5["ds"].min(), h5["ds"].max(), 10)
 ax.plot(xs, fit.params.iloc[0] + fit.params.iloc[1] * xs, lw=1, color="gray")
 ax.axhline(0, lw=0.5, color="k"); ax.axvline(0, lw=0.5, color="k")
 ax.set_xlabel("Δ similarity of context to category (LLM raters)")
 ax.set_ylabel("Δ category share (classified reasons)")
-ax.legend()
+from matplotlib.lines import Line2D  # noqa: E402
+handles = [Line2D([0], [0], marker="o", linestyle="none", markersize=7,
+                  markerfacecolor=CAT_COLOR[c], markeredgecolor="black",
+                  label=CAT_LEGEND[c]) for c in CAT_OF.values()]
+handles += [Line2D([0], [0], marker=mk, linestyle="none", markersize=7,
+                   markerfacecolor="#cccccc", markeredgecolor="black", label=comp)
+            for comp, mk in [("Market-Control", "o"), ("Aid-Bonus", "s")]]
+ax.legend(handles=handles, fontsize=8)
 fig.tight_layout()
 fig.savefig(OUT / "h5_scatter.png", dpi=200)
 fig.savefig(PKG / "figures" / "similarity_h5.pdf")

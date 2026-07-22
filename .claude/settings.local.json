@@ -3,7 +3,9 @@
     "allow": [
       "Bash(mv /Users/snunnari/Dropbox/Downloads/representations_paper_archive/disparity_model/model_companion_disparity.tex /Users/snunnari/Dropbox/Downloads/representations_paper_archive/disparity_model/model_companion_disparity.pdf /Users/snunnari/Dropbox/Downloads/representations_paper_archive/)",
       "Read(//Users/snunnari/Dropbox/Downloads/representations_paper_archive/**)",
-      "Bash(umask 077)"
+      "Bash(umask 077)",
+      "Bash(md5 -q output/tables/llm_human_agreement.tex output/tables/validation_within_stats.txt)",
+      "Bash(mv data/missingdata/*.xlsx data/)"
     ]
   }
 }

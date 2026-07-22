@@ -1366,6 +1366,24 @@ def main() -> None:
         p1_belief_points = pd.concat(instability_points[spec["slug"]]["p1_belief"], ignore_index=True)
         p2_actual_points = pd.concat(instability_points[spec["slug"]]["p2_actual"], ignore_index=True)
         p2_hyp_points = pd.concat(instability_points[spec["slug"]]["p2_hyp"], ignore_index=True)
+        # Emit the figure's full cell data (all four panels) so every predicted/actual
+        # pair behind fig:instability_all is log-backed — in particular the four P2
+        # hypothetical predicted values, which appear in no fit table (2026-07-20).
+        instability_cells = pd.concat(
+            [
+                points.assign(panel=panel)
+                for panel, points in [
+                    ("p1_action", p1_action_points),
+                    ("p1_belief", p1_belief_points),
+                    ("p2_actual", p2_actual_points),
+                    ("p2_hyp", p2_hyp_points),
+                ]
+            ],
+            ignore_index=True,
+        )
+        instability_cells[
+            ["panel", "comparison_title", "label", "point_label", "actual", "predicted"]
+        ].to_csv(TEX_DIR / f"{spec['slug']}_instability_cells.csv", index=False)
         # 2026-07-19 (SN): the four single-panel exhibits are superseded in the paper
         # by the combined 2x2 panel below; calls kept, commented, for re-enabling.
         # make_instability_figure(

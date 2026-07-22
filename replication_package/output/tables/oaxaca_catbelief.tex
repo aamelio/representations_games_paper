@@ -8,17 +8,28 @@
 \toprule
 & & & \multicolumn{3}{c}{Symmetrized (preregistered)} & \multicolumn{2}{c}{Representation comp.} & \\
 \cmidrule(lr){4-6}\cmidrule(lr){7-8}
-Comparison & Game & $\Delta$ mean & Repr. & Behav. & Repr. \% & Control ref. & Pooled ref. & $N$ \\
+Comparison & Game & $\Delta$ mean & Repr. & Behav. & Repr. \% & Baseline ref. & Pooled ref. & $N$ \\
 \midrule
 Market vs Control & DG-KW & -0.101 & -0.039 & -0.061 & 39\% & -0.060 & -0.048 & 728 \\
-Market vs Control & UG & -0.220 & -0.036 & -0.184 & 16\% & -0.003 & -0.082 & 1027 \\
-Market vs Control & TG & +0.133 & +0.078 & +0.054 & 59\% & +0.075 & +0.088 & 970 \\
+ & & (0.018) & (0.016) & (0.020) & & (0.027) & (0.012) & \\
+\addlinespace[2pt]
+Market vs Control & UG & -0.220 & -0.036 & -0.184 & 16\% & -0.003 & -0.088 & 1027 \\
+ & & (0.013) & (0.015) & (0.020) & & (0.024) & (0.009) & \\
+\addlinespace[2pt]
+Market vs Control & TG & +0.133 & +0.078 & +0.054 & 59\% & +0.075 & +0.089 & 970 \\
+ & & (0.019) & (0.012) & (0.018) & & (0.015) & (0.012) & \\
+\addlinespace[2pt]
 Aid vs Bonus & DG-KW & -0.059 & -0.039 & -0.021 & 65\% & -0.039 & -0.037 & 790 \\
-Aid vs Bonus & UG & -0.024 & -0.012 & -0.011 & 52\% & -0.009 & -0.018 & 1120 \\
-Aid vs Bonus & TG & +0.008 & +0.011 & -0.003 & 144\% & +0.011 & +0.005 & 937 \\
+ & & (0.013) & (0.010) & (0.008) & & (0.011) & (0.010) & \\
+\addlinespace[2pt]
+Aid vs Bonus & UG & -0.024 & -0.012 & -0.011 & 52\% & -0.009 & -0.017 & 1120 \\
+ & & (0.007) & (0.003) & (0.006) & & (0.003) & (0.004) & \\
+\addlinespace[2pt]
+Aid vs Bonus & TG & +0.008 & +0.011 & -0.003 & --- & +0.011 & +0.009 & 937 \\
+ & & (0.020) & (0.014) & (0.016) & & (0.014) & (0.012) & \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Pre-registered symmetrized (Shapley/Oaxaca--Blinder) decomposition of the difference in mean Player 1 actions between conditions into a component due to the distribution of representations and a component due to behavior conditional on the representation. Representation cells are the stated category interacted with terciles of the hypothetical belief (ultimatum and trust games, with terciles computed within game on the two conditions compared); the dictator game has no belief elicitation, so its cells are categories only. The last two columns recompute the representation component holding conditional means fixed at the baseline condition (Control ref.)\ and at the four-condition pooled sample (Pooled ref.). Cells empty in one condition contribute their observed mean to the representation component. Classified sample with non-missing beliefs where applicable.
+\footnotesize Notes: Pre-registered symmetrized (Shapley/Oaxaca--Blinder) decomposition of the difference in mean Player 1 actions between conditions into a component due to the distribution of representations and a component due to behavior conditional on the representation. Representation cells are the stated category interacted with terciles of the hypothetical belief (ultimatum and trust games, with terciles computed within game on the two conditions compared); the dictator game has no belief elicitation, so its cells are categories only. The last two columns recompute the representation component holding conditional means fixed at the baseline condition of each comparison (Baseline ref.: Control or Bonus) and at the four-condition pooled sample (Pooled ref.), with the two-condition tercile edges applied to the pooled sample; each reference scheme decomposes the mean difference exactly. Cells empty in one condition contribute their observed mean to the representation component. Bootstrap standard errors in parentheses ($B=1{,}000$ participant-level draws within game $\times$ condition strata; terciles and the full decomposition recomputed in each draw). Representation shares are point estimates of the symmetrized split; the share is not reported for the trust-game story comparison, where the total effect is +0.008 (bootstrap SE 0.020) and the share is undefined or degenerate in 44\% of bootstrap draws. Classified sample with non-missing beliefs where applicable.
 \end{flushleft}
 \end{table}

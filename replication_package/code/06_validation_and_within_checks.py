@@ -1,7 +1,8 @@
 """
 06_validation_and_within_checks.py
 
-Analyses unlocked by AA's 2026-07-10 delivery (missingdata/):
+Analyses unlocked by AA's 2026-07-10 delivery (eight workbooks, formerly in
+data/missingdata/, moved into data/ on 2026-07-21):
 
 A. LLM-human classification validation (six workbooks: player1 aid/bonus,
    player1 market/control, player2). The two 'subsamples' per batch are
@@ -46,7 +47,7 @@ import pandas as pd
 import statsmodels.formula.api as smf
 
 ROOT = Path(__file__).resolve().parent.parent  # replication_package/
-MISSING = ROOT / "data" / "missingdata"
+DATA = ROOT / "data"
 TABLE_DIR = ROOT / "output" / "tables"
 STATS_FILE = TABLE_DIR / "validation_within_stats.txt"
 
@@ -94,8 +95,8 @@ for _ref in (p1_all, p2_all):
 
 # sanity checks: label maps; disjointness of the two subsamples
 for batch, pat in BATCHES.items():
-    f1 = pd.read_excel(MISSING / pat.format(1))
-    f2 = pd.read_excel(MISSING / pat.format(2))
+    f1 = pd.read_excel(DATA / pat.format(1))
+    f2 = pd.read_excel(DATA / pat.format(2))
     labels = P2_LABELS if batch.startswith("Player 2") else P1_LABELS
     m = f1.groupby("llm_category_num")["llm_category"].agg(lambda s: s.unique().tolist())
     for num, labs in m.items():
@@ -118,7 +119,7 @@ for batch, pat in BATCHES.items():
     per_sub, per_arm = [], {}
     all_a, all_b = [], []
     for sub in (1, 2):
-        df = pd.read_excel(MISSING / pat.format(sub)).dropna(subset=["cat_manual"])
+        df = pd.read_excel(DATA / pat.format(sub)).dropna(subset=["cat_manual"])
         po, kap, n = agree_kappa(df["cat_manual"], df["llm_category_num"])
         emit(f"subsample {sub}: N={n}  agreement={po:.3f}  kappa={kap:.3f}")
         per_sub.append((n, po, kap))
@@ -152,7 +153,7 @@ for batch, pat in BATCHES.items():
     batch_rows[batch] = (per_sub[0], per_sub[1], (n, po, kap))
     arm_rows[batch] = per_arm
 
-    both = pd.concat([pd.read_excel(MISSING / pat.format(s)).dropna(subset=["cat_manual"]) for s in (1, 2)])
+    both = pd.concat([pd.read_excel(DATA / pat.format(s)).dropna(subset=["cat_manual"]) for s in (1, 2)])
     both["cat_manual"] = both["cat_manual"].astype(int)
     dis = both[both["cat_manual"] != both["llm_category_num"]]
     labels = P2_LABELS if batch.startswith("Player 2") else P1_LABELS
@@ -208,8 +209,8 @@ emit("\n" + "=" * 78)
 emit("PART B: WITHIN-SUBJECT MICRODATA")
 emit("=" * 78)
 
-long = pd.read_excel(MISSING / "within_all_long_categorized.xlsx")
-pairs = pd.read_excel(MISSING / "within_all_pairs_categorized.xlsx")
+long = pd.read_excel(DATA / "within_all_long_categorized.xlsx")
+pairs = pd.read_excel(DATA / "within_all_pairs_categorized.xlsx")
 
 emit("\n--- Arm sizes (pairs file; preregistered 3 x 600) ---")
 emit(pairs.groupby(["design", "fixed_game"])["pair_id"].nunique().to_string())
