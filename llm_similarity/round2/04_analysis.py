@@ -83,9 +83,11 @@ for key, lab in ROW_LABEL:
         tex.append(r"\midrule")
 tex += [r"\bottomrule", r"\end{tabular}", r"\begin{flushleft}",
         r"\footnotesize Notes: Similarity: 0--100 rating of each context text against eight"
-        r" vignette exemplars per category, averaged over vignettes and three permuted-label"
-        r" conversations (Claude Opus 4.8 raters with reasoning enabled; single-model working"
-        r" measurement). Retrieval split: 100 points distributed across the 24 vignettes"
+        r" vignette exemplars per category, judging the situation as a whole (stakes,"
+        r" relationship, setting, and decision structure), averaged over vignettes and three"
+        r" permuted-label conversations (Claude Opus 4.8 raters with reasoning enabled;"
+        r" single-model working measurement). Retrieval split: 100 points distributed across"
+        r" the 24 vignettes"
         r" according to which would come to mind as a similar experience, aggregated by"
         r" category. Context texts are verbatim from the instructions and stories"
         r" (Appendix~\ref{app:instructions}). Design, prompts, and robustness:"

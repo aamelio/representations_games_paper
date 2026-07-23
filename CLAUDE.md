@@ -138,14 +138,38 @@ edited .tex (incl. `\input`-ed generated tables); suppress false positives with 
   pre-existing labels, §3.3+T5-note verbatim-Control-instructions clauses. main.tex 111 pp.,
   compiles clean, 0 undefined; briefing synced (9 pp. — its commented-out verification
   sections predate today).
+- **2026-07-22 (eleventh session):** AA's pre-call comments PROCESSED. Two fixes in §3.3:
+  "structural distance"→"structural similarity to the stories" (the 94.6→14.4 ordering ranks
+  similarity; "distance" read it backwards) and "budget structure"→"pie structure"; the five
+  decomposition dimensions defined verbatim in the extended protocol footnote (no body text
+  added, no footnote renumbered). Measure definitions INSERTED in both §3.3 protocol
+  sentences and both table notes via the generators (scripts 21 + round2/04 edited and
+  re-run; all numeric outputs byte-identical): T5 = structure-only-by-instruction rating vs
+  unrestricted-recall split; T6 = whole-situation rating vs forced 100-point split. Italian
+  replies for AA drafted in chat (retrieval T5/T6 + F6). main.tex 111 pp., compiles clean,
+  0 undefined, aux label numbers identical.
+- **2026-07-22 (twelfth session):** AA's eq. (7)/BCS question (joint SN+AA decoding of NG's
+  vague handwritten margin note, prep for tomorrow) ANSWERED with verification, no edits: AA's
+  interpretation confirmed exact (BCS = R² of action on category dummies; adding belief
+  terciles fully interacted = saturated regression = between-cell share on the 9 C×tercile
+  cells); the R² increment he asked for = script 20 A/A2, +0.005 to +0.048 across the eight
+  UG/TG cells, ≤0.06 under all three tercile conventions — already the eq:bcs footnote.
+  KEY FACT verified: that footnote IS in main_v2.tex (NG highlighted eq. 7 with the
+  quantitative answer on the page) → call answer is the conceptual framing: coarsest cut ⇒
+  lower bound by partition refinement, near-tight (part mechanical, min cell N 2–15), beliefs
+  do their work in the benchmark regressions/F12/T14. Italian reply to AA drafted in chat.
 - **Current task:** Thursday 2026-07-23 methods call (briefing + Q&A answers note ready);
-  SN sends the ninth session's Italian T14 reply to AA (and the eighth session's App F
-  confirmation, if not yet sent). Still pending SN: revoke the round-2 API key; delete
+  SN sends the twelfth session's BCS reply, the eleventh session's AA replies (retrieval
+  definitions/assessment + F6), and the ninth session's Italian T14 reply (and the eighth
+  session's App F confirmation, if not yet sent). Still pending SN: revoke the round-2 API key; delete
   `Downloads/Gennaioli-2`, `Downloads/representations_paper_archive`, and the project-root
   `player1_examples_method_email_package/`.
-- **Next steps:** Thursday call decisions — T6 retrieval-split block (drop vs App H) and
-  the T14 reference-columns drop (AA's proposal; columns were NG's July-19 request, so NG
-  decides — bootstrap/pooled/tercile fixes already implemented); coauthor
+- **Next steps:** Thursday call decisions — T6 retrieval-split block (drop vs App H, now
+  argued as format-redundant), the T14 reference-columns drop (AA's proposal; columns were
+  NG's July-19 request, so NG decides — bootstrap/pooled/tercile fixes already implemented),
+  and the F6 caption revision (drop the se, disclose Market−Control identification + the
+  stories' near-zero test; implement post-call in 04_analysis.py caption + the §3.3 fit
+  quote); coauthor
   reactions (anchor framing, equalization placement, DG-LT, disparity-cut veto, unclassified
   footnote, T32/37 replacement + §5.3 rewrite); 3-model similarity grid (needs GPT/Gemini
   keys); human survey Module B via
@@ -616,3 +640,40 @@ edited .tex (incl. `\input`-ed generated tables); suppress false positives with 
   T5 (keep). Briefing synced (T14 item rewritten to the implemented revision; receiver-split
   line → Table 40); briefing PDF is 9 pp. on disk — its verification sections were already
   commented out before today (the 12 pp. in earlier log entries refers to that older state).
+- 2026-07-22 (eleventh session): AA comment 1 CONFIRMED and fixed — §3.3 round-1 findings
+  sentence said "structural distance" over similarity ratings (T5 column header), so the
+  DG-KW 94.6 > … > TG 14.4 ordering read backwards; now "structural similarity to the
+  stories". Lines 456/642 keep "structural distance" (effects-fade direction is correct
+  there; flip to similarity phrasing only if coauthors want full terminology unification).
+- 2026-07-22 (eleventh session): AA comment 2 (five dimensions unexplained) resolved
+  without body text: the prompt-1.2 taxonomy quoted verbatim in the extended protocol
+  footnote ("fixed in the prompt" = not model-chosen), and "budget structure"→"pie
+  structure" in the findings sentence so the dimension-1 callback is exact.
+- 2026-07-22 (eleventh session): two-measures clarification VERIFIED from the prompts and
+  now stated in the paper — T5's rating is structural BY INSTRUCTION ("ignore surface
+  thematic content") while its split is unrestricted recall, so their divergence is the
+  finding (keep both); T6's rating and split both judge the situation as a whole and differ
+  only in format (unconstrained 0–100 vs sum-to-100), so the split is only a normalization
+  check (propose appendix-or-drop to NG). Never call T6's rating "structural" on the call.
+  Definitions inserted in §3.3 (both protocol sentences) + T5/T6 notes via generators
+  (21_round1_similarity_table.py, round2/04_analysis.py; re-run, numeric outputs and
+  h5_scatter.png byte-identical); compile clean, 111 pp., aux labels identical.
+- 2026-07-22 (twelfth session): AA's saturated-regression reading of eq. (7) CONFIRMED
+  (BCS ≡ R² on category dummies; +belief-tercile interactions ≡ 9-cell between share) and
+  his "keep it simple" verdict endorsed — matches the existing eq:bcs footnote (≤0.06,
+  script 20 A/A2); no paper/code edits, reply drafted in chat. Context correction (SN):
+  AA is not staking a position vs NG — SN+AA are jointly decoding NG's vague handwritten
+  eq. 7 note for the call.
+- 2026-07-22 (twelfth session): eq:bcs footnote verified PRESENT in main_v2.tex — NG
+  highlighted eq. 7 with the ≤0.06 answer already on the page, so the call answer leads
+  with the conceptual lower-bound argument (categories = coarsest cut of C×B; refinement
+  weakly raises R²; slack ≤0.06 near-tight because UG beliefs are flat across categories
+  and TG beliefs vary with category), not with new numbers.
+- 2026-07-22 (eleventh session): F6 reply to AA — (i) conceded the slope is identified by
+  Market−Control (Aid−Bonus x-span 4.7 points; Market-only slope 0.0129, R²=0.69 vs pooled
+  0.0122), but pooling is non-distorting and the story cells test the near-zero prediction
+  (could break the fit, don't); (ii) conceded no clean sampling inference (constructed
+  cells, by-construction correlated errors, single-model x) — descriptive reading, LOO
+  slope [0.0100, 0.0173] always positive. Proposal HELD for the call (F6 = NG highlight):
+  caption discloses the identification, drops the se, keeps R²; implement post-call in
+  04_analysis.py caption block + the §3.3 sentence quoting the fit.
