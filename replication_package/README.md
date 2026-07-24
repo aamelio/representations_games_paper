@@ -82,9 +82,9 @@ python3 09_p2_foundation.py                            # NG round: P2 categories
                                                        #   schedules by category; believed-vs-actual
                                                        #   slopes; FE by offer bin
 python3 10_interaction_accounting.py                   # NG round: category x belief interactions
-python3 11_oaxaca.py                                   # NG round: preregistered Oaxaca, cat x belief cells
-                                                       #   (2026-07-22: exact pooled ref on 2-condition
-                                                       #   tercile edges; bootstrap SEs B=1000, ~20 s)
+python3 11_oaxaca.py                                   # preregistered symmetrized Oaxaca: parallel
+                                                       #   category x hypothetical- and actual-belief
+                                                       #   cells; matched legacy HP sample; bootstrap SEs B=1000
 python3 12_ng_page_items.py                            # NG round: SP x action panel, quote candidates
 python3 13_receiver_models.py                          # NG round: receiver protest/equalization fits
                                                        #   (p2_schedules; partly held out of the paper)
